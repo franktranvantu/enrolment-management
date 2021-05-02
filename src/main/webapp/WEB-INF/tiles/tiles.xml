@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+    <definition name="layout" template="/WEB-INF/views/layout/layout.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/layout/header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
+    </definition>
+
+    <definition name="enrolment-list" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/body/enrolment/enrolment-list.jsp" />
+        <put-attribute name="cssLink" value="enrolment/enrolment.css" />
+        <put-attribute name="jsLink" value="enrolment/enrolment-list.js" />
+    </definition>
+    <definition name="save-enrolment" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/body/enrolment/save-enrolment.jsp" />
+        <put-attribute name="cssLink" value="enrolment/enrolment.css" />
+        <put-attribute name="jsLink" value="enrolment/save-enrolment.js" />
+    </definition>
+
+    <definition name="change-password" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/body/profile/change-password.jsp" />
+        <put-attribute name="cssLink" value="" />
+        <put-attribute name="jsLink" value="profile/change-password.js" />
+    </definition>
+
+    <definition name="course-list" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/body/course/course-list.jsp" />
+        <put-attribute name="cssLink" value="course/course.css" />
+        <put-attribute name="jsLink" value="course/course-list.js" />
+    </definition>
+    <definition name="save-course" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/body/course/save-course.jsp" />
+        <put-attribute name="cssLink" value="course/course.css" />
+        <put-attribute name="jsLink" value="course/save-course.js" />
+    </definition>
+
+    <definition name="student-list" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/body/student/student-list.jsp" />
+        <put-attribute name="cssLink" value="student/student.css" />
+        <put-attribute name="jsLink" value="student/student-list.js" />
+    </definition>
+    <definition name="save-student" extends="layout">
+        <put-attribute name="body" value="/WEB-INF/views/body/student/save-student.jsp" />
+        <put-attribute name="cssLink" value="student/student.css" />
+        <put-attribute name="jsLink" value="student/save-student.js" />
+    </definition>
+</tiles-definitions>
