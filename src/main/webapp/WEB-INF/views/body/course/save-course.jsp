@@ -20,13 +20,21 @@
       <div class="form-group row">
         <label for="name" class="col-sm-3 col-form-label">Name <span class="text-danger">*</span></label>
         <div class="col-sm">
-          <form:input path="name" class="form-control" id="name" aria-describedby="name"/>
-          <div id="name" class="invalid-feedback">
-            Name is mandatory
-          </div>
-          <div id="name" class="invalid-feedback">
-            <form:errors path="name"/>
-          </div>
+          <c:set var="nameError"><form:errors path="name"/></c:set>
+          <c:choose>
+            <c:when test="${empty nameError}">
+              <form:input path="name" class="form-control" id="name" aria-describedby="name"/>
+              <div id="name" class="invalid-feedback">
+                Name is mandatory
+              </div>
+            </c:when>
+            <c:when test="${not empty nameError}">
+              <form:input path="name" class="form-control is-invalid" id="name" aria-describedby="name"/>
+              <div id="name" class="invalid-feedback">
+                ${nameError}
+              </div>
+            </c:when>
+          </c:choose>
         </div>
       </div>
       <div class="form-group row">
