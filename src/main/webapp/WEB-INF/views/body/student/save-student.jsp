@@ -17,32 +17,48 @@
     <form:form action="${contextPath}/student/save-student" method="post" modelAttribute="student" id="save-student">
       <form:hidden path="id"/>
       <div class="form-group row">
-        <label for="name" class="col-sm-2 col-form-label">Name</label>
-        <div class="col-sm-10">
-          <form:input path="name" class="form-control" id="name" aria-describedby="name"/>
-          <div id="name" class="invalid-feedback">
-            Name is mandatory
-          </div>
-          <div id="name" class="invalid-feedback">
-            <form:errors path="name"/>
-          </div>
+        <label for="name" class="col-sm-3 col-form-label">Name <span class="text-danger">*</span></label>
+        <div class="col-sm">
+          <c:set var="nameError"><form:errors path="name"/></c:set>
+          <c:choose>
+            <c:when test="${empty nameError}">
+              <form:input path="name" class="form-control" id="name" aria-describedby="name"/>
+              <div id="name" class="invalid-feedback">
+                Name is mandatory
+              </div>
+            </c:when>
+            <c:when test="${not empty nameError}">
+              <form:input path="name" class="form-control is-invalid" id="name" aria-describedby="name"/>
+              <div id="name" class="invalid-feedback">
+                ${nameError}
+              </div>
+            </c:when>
+          </c:choose>
         </div>
       </div>
       <div class="form-group row">
-        <label for="email" class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
-          <form:input type="email" path="email" class="form-control" id="email" aria-describedby="email"/>
-          <div id="email" class="invalid-feedback">
-            Email is mandatory
-          </div>
-          <div id="email" class="invalid-feedback">
-            <form:errors path="email"/>
-          </div>
+        <label for="email" class="col-sm-3 col-form-label">Email <span class="text-danger">*</span></label>
+        <div class="col-sm">
+          <c:set var="emailError"><form:errors path="email"/></c:set>
+          <c:choose>
+            <c:when test="${empty emailError}">
+              <form:input type="email" path="email" class="form-control" id="email" aria-describedby="email"/>
+              <div id="email" class="invalid-feedback">
+                Email is mandatory
+              </div>
+            </c:when>
+            <c:when test="${not empty emailError}">
+              <form:input type="email" path="email" class="form-control is-invalid" id="email" aria-describedby="email"/>
+              <div id="email" class="invalid-feedback">
+                ${emailError}
+              </div>
+            </c:when>
+          </c:choose>
         </div>
       </div>
       <div class="form-group row">
-        <label for="dob" class="col-sm-2 col-form-label">Birthday</label>
-        <div class="col-sm-10">
+        <label for="dob" class="col-sm-3 col-form-label">Birthday</label>
+        <div class="col-sm">
           <form:input path="dob" class="form-control" id="dob" placeholder="dd/mm/yyyy"/>
         </div>
       </div>

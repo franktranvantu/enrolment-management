@@ -18,8 +18,8 @@
         <form:form action="${contextPath}/save-enrolment" method="post" modelAttribute="enrolment" id="save-enrolment">
             <form:hidden path="id" />
             <div class="form-group row">
-                <label for="course" class="col-sm-2 col-form-label">Course</label>
-                <div class="col-sm-10">
+                <label for="course" class="col-sm-4 col-form-label">Course <span class="text-danger">*</span></label>
+                <div class="col-sm">
                     <form:select path="course" class="form-control" id="course" aria-describedby="course">
                         <c:forEach var="course" items="${courses}">
                             <option value="${course.id}" ${enrolment.course.id == course.id ? 'selected' : ''}>${course.name}</option>
@@ -34,8 +34,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="student" class="col-sm-2 col-form-label">Student</label>
-                <div class="col-sm-10">
+                <label for="student" class="col-sm-4 col-form-label">Student <span class="text-danger">*</span></label>
+                <div class="col-sm">
                     <form:select path="student" class="form-control" id="student" aria-describedby="student">
                         <c:forEach var="student" items="${students}">
                             <option value="${student.id}" ${enrolment.student.id == student.id ? 'selected' : ''}>${student.name}</option>
@@ -50,8 +50,8 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="semester" class="col-sm-2 col-form-label">Semester</label>
-                <div class="col-sm-10">
+                <label for="semester" class="col-sm-4 col-form-label">Semester <span class="text-danger">*</span></label>
+                <div class="col-sm">
                     <form:input path="semester" class="form-control" id="semester" aria-describedby="semester"/>
                     <div id="semester" class="invalid-feedback">
                         Semester is mandatory

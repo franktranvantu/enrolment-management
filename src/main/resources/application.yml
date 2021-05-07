@@ -1,7 +1,3 @@
-server:
-  servlet:
-    context-path: /enrolment-management
-
 spring:
   profiles:
     active: heroku
