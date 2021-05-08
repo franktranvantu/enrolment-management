@@ -19,35 +19,37 @@
     <div class="card border-0">
       <div class="card-header bg-transparent">
         <div class="mt-2 mb-4 d-flex">
-          <h4 class="card-title mb-0">Search student</h4>
+          <h4 class="card-title mb-0">Search students</h4>
         </div>
-        <form action="${contextPath}/student" method="get">
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="name" class="form-label">Name</label>
-                <input type="input" name="name" class="form-control" id="name">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input type="input" name="email" class="form-control" id="email">
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="dob" class="form-label">Birthday</label>
-                <input type="input" name="dob" class="form-control" id="dob">
-              </div>
-            </div>
-            <div class="col-auto d-flex align-items-end justify-content-end">
-              <div class="form-group">
-                <button type="submit" class="btn btn-success"><i class="fas fa-search"></i> Search</button>
-              </div>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <label for="name" class="form-label">Name</label>
+              <input type="input" class="form-control" id="name" value="${student.name}">
             </div>
           </div>
-        </form>
+          <div class="col">
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input type="input" class="form-control" id="email" value="${student.email}">
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="dob" class="form-label">Birthday</label>
+              <input type="input" class="form-control" id="dob" value="${student.dob}">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex align-items-end justify-content-end">
+            <div class="form-group">
+              <button class="btn btn-info" id="export-pdf"><i class="fas fa-file-pdf"></i> Export PDF</button>
+              <button class="btn btn-secondary" id="export-excel"><i class="fas fa-file-excel"></i> Export Excel</button>
+              <button class="btn btn-success" id="search"><i class="fas fa-search"></i> Search</button>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card-body">
         <div class="mt-4 mb-4 d-flex justify-content-between align-items-center">
@@ -80,8 +82,9 @@
                   <form class="mb-0" action="${contextPath}/student/update-student" method="post">
                     <input type="hidden" name="id" value="${student.id}"/>
                     <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                    <a href="" class="btn btn-sm btn-danger delete-student-button" data-id="${student.id}"><i
-                        class="fas fa-trash"></i></a>
+                    <a href="" class="btn btn-sm btn-danger delete-student-button" data-id="${student.id}">
+                      <i class="fas fa-trash"></i>
+                    </a>
                   </form>
                 </td>
               </c:if>

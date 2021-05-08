@@ -30,7 +30,7 @@
             <c:when test="${not empty nameError}">
               <form:input path="name" class="form-control is-invalid" id="name" aria-describedby="name"/>
               <div id="name" class="invalid-feedback">
-                ${nameError}
+                Name is mandatory
               </div>
             </c:when>
           </c:choose>
@@ -42,15 +42,15 @@
           <c:set var="emailError"><form:errors path="email"/></c:set>
           <c:choose>
             <c:when test="${empty emailError}">
-              <form:input type="email" path="email" class="form-control" id="email" aria-describedby="email"/>
+              <form:input path="email" class="form-control" id="email" aria-describedby="email"/>
               <div id="email" class="invalid-feedback">
                 Email is mandatory
               </div>
             </c:when>
             <c:when test="${not empty emailError}">
-              <form:input type="email" path="email" class="form-control is-invalid" id="email" aria-describedby="email"/>
+              <form:input path="email" class="form-control is-invalid" id="email" aria-describedby="email"/>
               <div id="email" class="invalid-feedback">
-                ${emailError}
+                Email is mandatory
               </div>
             </c:when>
           </c:choose>

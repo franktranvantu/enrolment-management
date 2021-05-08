@@ -20,77 +20,45 @@
             <div class="form-group row">
                 <label for="course" class="col-sm-4 col-form-label">Course <span class="text-danger">*</span></label>
                 <div class="col-sm">
-                    <c:set var="courseError"><form:errors path="course" /></c:set>
-                    <c:choose>
-                        <c:when test="${empty courseError}">
-                            <form:select path="course" class="form-control" id="course" aria-describedby="course">
-                                <c:forEach var="course" items="${courses}">
-                                    <option value="${course.id}" ${enrolment.course.id == course.id ? 'selected' : ''}>${course.name}</option>
-                                </c:forEach>
-                            </form:select>
-                            <div id="course" class="invalid-feedback">
-                                Course is mandatory
-                            </div>
-                        </c:when>
-                        <c:when test="${not empty courseError}">
-                            <form:select path="course" class="form-control is-invalid" id="course" aria-describedby="course">
-                                <c:forEach var="course" items="${courses}">
-                                    <option value="${course.id}" ${enrolment.course.id == course.id ? 'selected' : ''}>${course.name}</option>
-                                </c:forEach>
-                            </form:select>
-                            <div id="course" class="invalid-feedback">
-                                ${courseError}
-                            </div>
-                        </c:when>
-                    </c:choose>
+                    <form:select path="course" class="form-control" id="course" aria-describedby="course">
+                        <c:forEach var="course" items="${courses}">
+                            <option value="${course.id}" ${enrolment.course.id == course.id ? 'selected' : ''}>${course.name}</option>
+                        </c:forEach>
+                    </form:select>
+                    <div id="course" class="invalid-feedback">
+                        Course is mandatory
+                    </div>
+                    <div id="course" class="invalid-feedback">
+                        <form:errors path="course" />
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="student" class="col-sm-4 col-form-label">Student <span class="text-danger">*</span></label>
                 <div class="col-sm">
-                    <c:set var="studentError"><form:errors path="student" /></c:set>
-                    <c:choose>
-                        <c:when test="${empty studentError}">
-                            <form:select path="student" class="form-control" id="student" aria-describedby="student">
-                                <c:forEach var="student" items="${students}">
-                                    <option value="${student.id}" ${enrolment.student.id == student.id ? 'selected' : ''}>${student.name}</option>
-                                </c:forEach>
-                            </form:select>
-                            <div id="student" class="invalid-feedback">
-                                Student is mandatory
-                            </div>
-                        </c:when>
-                        <c:when test="${not empty studentError}">
-                            <form:select path="student" class="form-control is-invalid" id="student" aria-describedby="student">
-                                <c:forEach var="student" items="${students}">
-                                    <option value="${student.id}" ${enrolment.student.id == student.id ? 'selected' : ''}>${student.name}</option>
-                                </c:forEach>
-                            </form:select>
-                            <div id="student" class="invalid-feedback">
-                                ${studentError}
-                            </div>
-                        </c:when>
-                    </c:choose>
+                    <form:select path="student" class="form-control" id="student" aria-describedby="student">
+                        <c:forEach var="student" items="${students}">
+                            <option value="${student.id}" ${enrolment.student.id == student.id ? 'selected' : ''}>${student.name}</option>
+                        </c:forEach>
+                    </form:select>
+                    <div id="student" class="invalid-feedback">
+                        Student is mandatory
+                    </div>
+                    <div id="student" class="invalid-feedback">
+                        <form:errors path="student" />
+                    </div>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="semester" class="col-sm-4 col-form-label">Semester <span class="text-danger">*</span></label>
                 <div class="col-sm">
-                    <c:set var="semesterError"><form:errors path="semester" /></c:set>
-                    <c:choose>
-                        <c:when test="${empty semesterError}">
-                            <form:input path="semester" class="form-control" id="semester" aria-describedby="semester"/>
-                            <div id="semester" class="invalid-feedback">
-                                Semester is mandatory
-                            </div>
-                        </c:when>
-                        <c:when test="${not empty semesterError}">
-                            <form:input path="semester" class="form-control is-invalid" id="semester" aria-describedby="semester"/>
-                        </c:when>
-                        <div id="semester" class="invalid-feedback">
-                            ${semesterError}
-                        </div>
-                    </c:choose>
+                    <form:input path="semester" class="form-control" id="semester" aria-describedby="semester"/>
+                    <div id="semester" class="invalid-feedback">
+                        Semester is mandatory
+                    </div>
+                    <div id="semester" class="invalid-feedback">
+                        <form:errors path="semester" />
+                    </div>
                 </div>
             </div>
             <div class="form-group row">

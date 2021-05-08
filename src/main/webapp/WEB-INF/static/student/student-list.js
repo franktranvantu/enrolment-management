@@ -7,8 +7,36 @@ $(function() {
   $('#dob').datepicker(options);
 
   $('#student').DataTable({
+    searching: false,
     scrollY: 450,
     scroller: true
+  });
+
+  $('#search, #export-excel, #export-pdf').click(e => {
+    const id = $(e.target).attr('id');
+    const {name, email, dob} = getFilterInfo();
+    let action;
+    let method;
+    switch (id) {
+      case 'search':
+        action = '';
+        method = 'GET';
+        break;
+      case 'export-excel':
+        action = '/export-excel';
+        method = 'POST';
+        break;
+      case 'export-pdf':
+        action = '/export-pdf';
+        method = 'POST';
+        break;
+    }
+    const $form = $(`<form action="/enrolment-management/student${action}" method="${method}"></form>`);
+    $form.append(`<input type="hidden" name="name" value="${name}">`);
+    $form.append(`<input type="hidden" name="email" value="${email}">`);
+    $form.append(`<input type="hidden" name="dob" value="${dob}">`);
+    $(document.body).append($form);
+    $($form).submit();
   });
 
   $('.table tbody').click(e => {
@@ -31,4 +59,15 @@ $(function() {
     $(document.body).append($form);
     $($form).submit();
   });
+
+  function getFilterInfo() {
+    const name = $('input#name').val();
+    const email = $('input#email').val();
+    const dob = $('input#dob').val();
+    return {
+      name,
+      email,
+      dob
+    }
+  }
 });

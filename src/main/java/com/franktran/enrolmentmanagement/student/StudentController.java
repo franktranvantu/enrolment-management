@@ -11,7 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -25,9 +27,13 @@ import static com.franktran.enrolmentmanagement.config.security.UserRole.STUDENT
 public class StudentController {
 
   private final StudentService studentService;
+  private final StudentExcelExporter studentExcelExporter;
+  private final StudentPdfExporter studentPdfExporter;
 
-  public StudentController(StudentService studentService) {
+  public StudentController(StudentService studentService, StudentExcelExporter studentExcelExporter, StudentPdfExporter studentPdfExporter) {
     this.studentService = studentService;
+    this.studentExcelExporter = studentExcelExporter;
+    this.studentPdfExporter = studentPdfExporter;
   }
 
   @ModelAttribute("username")
@@ -46,8 +52,31 @@ public class StudentController {
     List<Student> students = studentService.getAllStudents(name, email, dob);
     model.addAttribute("username", authentication.getName());
     model.addAttribute("students", students);
+    model.addAttribute("student", new Student(name, email, dob));
     model.addAttribute("isEditable", UserRole.isEditable(editableRoles, authentication.getAuthorities()));
     return "student-list";
+  }
+
+  @PostMapping("/export-excel")
+  @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
+  public String exportExcel(@RequestParam(required = false) String name,
+                            @RequestParam(required = false) String email,
+                            @RequestParam(required = false) LocalDate dob,
+                            HttpServletResponse response) throws IOException {
+    List<Student> students = studentService.getAllStudents(name, email, dob);
+    studentExcelExporter.export(response, students, "Students.xlsx");
+    return "forward:/student";
+  }
+
+  @PostMapping("/export-pdf")
+  @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
+  public String exportPdf(@RequestParam(required = false) String name,
+                            @RequestParam(required = false) String email,
+                            @RequestParam(required = false) LocalDate dob,
+                            HttpServletResponse response) throws IOException {
+    List<Student> students = studentService.getAllStudents(name, email, dob);
+    studentPdfExporter.export(response, students, "Students.pdf");
+    return "forward:/student";
   }
 
   @GetMapping("/create-student")
