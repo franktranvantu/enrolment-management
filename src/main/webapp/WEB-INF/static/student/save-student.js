@@ -1,6 +1,6 @@
 $(function() {
   $('#back').click(() => {
-    window.location.href = '/enrolment-management/student';
+    window.location.href = '/student';
   });
 
   const options = {

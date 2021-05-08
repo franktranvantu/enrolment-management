@@ -1,6 +1,6 @@
 $(function() {
   $('#back').click(() => {
-    window.location.href = '/enrolment-management/course';
+    window.location.href = '/course';
   });
 
   $('form#save-course').submit(() => {

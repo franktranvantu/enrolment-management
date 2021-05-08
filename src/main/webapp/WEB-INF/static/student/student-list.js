@@ -31,7 +31,7 @@ $(function() {
         method = 'POST';
         break;
     }
-    const $form = $(`<form action="/enrolment-management/student${action}" method="${method}"></form>`);
+    const $form = $(`<form action="/student${action}" method="${method}"></form>`);
     $form.append(`<input type="hidden" name="name" value="${name}">`);
     $form.append(`<input type="hidden" name="email" value="${email}">`);
     $form.append(`<input type="hidden" name="dob" value="${dob}">`);
@@ -54,7 +54,7 @@ $(function() {
     const modal = $('#delete-student-modal');
     const id = modal.data('id');
     modal.modal('hide');
-    const $form = $('<form action="/enrolment-management/student/delete-student" method="POST"></form>');
+    const $form = $('<form action="/student/delete-student" method="POST"></form>');
     $form.append(`<input type="hidden" name="id" value="${id}">`);
     $(document.body).append($form);
     $($form).submit();

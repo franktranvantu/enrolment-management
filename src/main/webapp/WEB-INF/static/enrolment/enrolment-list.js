@@ -19,7 +19,7 @@ $(function() {
     const modal = $('#delete-enrolment-modal');
     const id = modal.data('id');
     modal.modal('hide');
-    const $form = $('<form action="/enrolment-management/delete-enrolment" method="POST"></form>');
+    const $form = $('<form action="/delete-enrolment" method="POST"></form>');
     $form.append(`<input type="hidden" name="id" value="${id}">`);
     $(document.body).append($form);
     $($form).submit();
