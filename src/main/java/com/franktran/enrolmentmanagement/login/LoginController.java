@@ -29,6 +29,6 @@ public class LoginController {
             model.addAttribute("result", result);
             httpSession.removeAttribute("message");
         }
-        return "login/index";
+        return "login";
     }
 }

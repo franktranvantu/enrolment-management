@@ -45,6 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login").permitAll()
                 .loginProcessingUrl("/process-login")
+                .defaultSuccessUrl("/")
                 .failureHandler(loginFailureHandler())
             .and()
                 .rememberMe() // default is 2 weeks
