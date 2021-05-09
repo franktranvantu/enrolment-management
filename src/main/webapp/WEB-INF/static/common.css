@@ -6,3 +6,13 @@
 .profile {
     left: -40px;
 }
+
+.login,
+.register {
+    max-width: 300px;
+}
+
+.forgot-password,
+.reset-password {
+    max-width: 500px;
+}

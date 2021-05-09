@@ -6,11 +6,6 @@
   <title>Reset Password</title>
   <link rel="stylesheet" href="${contextPath}/webjars/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="${contextPath}/common.css">
-  <style>
-    .container {
-        max-width: 500px;
-    }
-  </style>
 </head>
 <body>
   <c:if test="${not empty result}">
@@ -19,7 +14,7 @@
     </div>
   </c:if>
 
-  <div class="container">
+  <div class="container reset-password">
     <div class="card border-0">
       <div class="card-header bg-transparent">
         <div class="mt-2 mb-4 d-flex">
@@ -64,6 +59,6 @@
   <script src="${contextPath}/webjars/jquery/jquery.min.js"></script>
   <script src="${contextPath}/webjars/lodash/lodash.min.js"></script>
   <script src="${contextPath}/common.js"></script>
-  <script src="${contextPath}/profile/reset-password.js"></script>
+  <script src="${contextPath}/login/reset-password.js"></script>
 </body>
 </html>

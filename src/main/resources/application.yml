@@ -19,7 +19,7 @@ spring:
 
   mail:
     host: smtp.gmail.com
-    username: franktranvantu@gmail.com
+    username: java.mail.0905@gmail.com
     password:
     port: 587
     properties:

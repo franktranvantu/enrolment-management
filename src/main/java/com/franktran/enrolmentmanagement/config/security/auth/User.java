@@ -22,12 +22,14 @@ public class User {
   private String password;
   private String email;
   private String role;
-  private String resetPasswordToken;
+  private String requestToken;
+  private boolean isEnabled;
 
-  public User(String username, String password, String email, String role) {
+  public User(String username, String password, String email, String role, boolean isEnabled) {
     this.username = username;
     this.password = password;
     this.email = email;
     this.role = role;
+    this.isEnabled = isEnabled;
   }
 }

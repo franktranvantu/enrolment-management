@@ -25,8 +25,9 @@
         <put-attribute name="cssLink" value="" />
         <put-attribute name="jsLink" value="profile/change-password.js" />
     </definition>
-    <definition name="forgot-password" template="/WEB-INF/views/body/profile/forgot-password.jsp"></definition>
-    <definition name="reset-password" template="/WEB-INF/views/body/profile/reset-password.jsp"></definition>
+    <definition name="register" template="/WEB-INF/views/login/register.jsp"></definition>
+    <definition name="forgot-password" template="/WEB-INF/views/login/forgot-password.jsp"></definition>
+    <definition name="reset-password" template="/WEB-INF/views/login/reset-password.jsp"></definition>
 
     <definition name="course-list" extends="layout">
         <put-attribute name="body" value="/WEB-INF/views/body/course/course-list.jsp" />

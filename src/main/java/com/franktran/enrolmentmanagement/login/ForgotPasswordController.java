@@ -1,4 +1,4 @@
-package com.franktran.enrolmentmanagement.profile;
+package com.franktran.enrolmentmanagement.login;
 
 import com.franktran.enrolmentmanagement.config.security.auth.User;
 import com.franktran.enrolmentmanagement.config.security.auth.UserService;
@@ -20,9 +20,11 @@ import java.util.Objects;
 @Controller
 public class ForgotPasswordController {
 
+  private final UserService userService;
   private final UserMailService userMailService;
 
-  public ForgotPasswordController(UserMailService userMailService) {
+  public ForgotPasswordController(UserService userService, UserMailService userMailService) {
+    this.userService = userService;
     this.userMailService = userMailService;
   }
 
@@ -38,9 +40,9 @@ public class ForgotPasswordController {
     ResultDto result = new ResultDto();
     String token = RandomString.make(30);
     try {
-      userMailService.updateResetPasswordToken(token, email);
+      userService.updateResetPasswordToken(token, email);
       String resetPasswordLink = Utility.getSiteURL(request) + "/reset-password?token=" + token;
-      userMailService.sendEmail(email, resetPasswordLink);
+      userMailService.sendResetEmail(email, resetPasswordLink);
       result.setStatus(ResultStatus.SUCCESS);
       result.setMessage("We have sent a reset password link to your email!");
     } catch (Exception e) {
@@ -53,7 +55,7 @@ public class ForgotPasswordController {
 
   @GetMapping("/reset-password")
   public String showResetPassword(@RequestParam String token, Model model) {
-    User user = userMailService.getByResetPasswordToken(token);
+    User user = userService.getByRequestToken(token);
     if (Objects.isNull(user)) {
       ResultDto result = new ResultDto();
       result.setStatus(ResultStatus.FAIL);
@@ -69,13 +71,13 @@ public class ForgotPasswordController {
   public String processResetPassword(@RequestParam String token,
                                      @RequestParam String password,
                                      Model model) {
-    User user = userMailService.getByResetPasswordToken(token);
+    User user = userService.getByRequestToken(token);
     ResultDto result = new ResultDto();
     if (Objects.isNull(user)) {
       result.setStatus(ResultStatus.FAIL);
       result.setMessage("Invalid Token");
     } else {
-      userMailService.updatePassword(user, password);
+      userService.updatePassword(user, password);
       result.setStatus(ResultStatus.SUCCESS);
       result.setMessage("You have successfully changed your password.");
     }

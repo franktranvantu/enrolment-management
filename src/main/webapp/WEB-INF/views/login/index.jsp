@@ -14,12 +14,12 @@
         ${result.message}
     </div>
   </c:if>
-  <div class="container">
+  <div class="container login">
     <h1 class="text-center mt-4 mb-4">Login</h1>
     <form id="login" method="post" action="process-login">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="username" name="username" class="form-control" aria-describedby="username" id="username">
+        <input name="username" class="form-control" aria-describedby="username" id="username">
         <div id="username" class="invalid-feedback">
           Username is mandatory
         </div>
@@ -45,9 +45,7 @@
       </div>
     </form>
     <hr/>
-    <form action="">
-      <button type="submit" class="btn btn-success w-100">Register</button>
-    </form>
+    <a href="${contextPath}/register" class="btn btn-success w-100">Register</a>
   </div>
   <script src="${contextPath}/webjars/jquery/jquery.min.js"></script>
   <script src="${contextPath}/webjars/lodash/lodash.min.js"></script>

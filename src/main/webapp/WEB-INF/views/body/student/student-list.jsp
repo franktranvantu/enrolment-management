@@ -44,8 +44,10 @@
         <div class="row">
           <div class="col d-flex align-items-end justify-content-end">
             <div class="form-group">
-              <button class="btn btn-info" id="export-pdf"><i class="fas fa-file-pdf"></i> Export PDF</button>
-              <button class="btn btn-secondary" id="export-excel"><i class="fas fa-file-excel"></i> Export Excel</button>
+              <c:if test="${isEditable}">
+                <button class="btn btn-info" id="export-pdf"><i class="fas fa-file-pdf"></i> Export PDF</button>
+                <button class="btn btn-secondary" id="export-excel"><i class="fas fa-file-excel"></i> Export Excel</button>
+              </c:if>
               <button class="btn btn-success" id="search"><i class="fas fa-search"></i> Search</button>
             </div>
           </div>
