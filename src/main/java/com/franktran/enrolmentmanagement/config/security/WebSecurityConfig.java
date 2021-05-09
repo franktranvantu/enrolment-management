@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/common.css", "/common.js", "/login/**", "/webjars/**");
+        web.ignoring().antMatchers("/common.css", "/common.js", "/profile/**", "/webjars/**");
     }
 
     @Override
@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
+            .antMatchers("/login/**", "/forgot-password/**", "/reset-password/**").permitAll()
             .anyRequest()
             .authenticated()
             .and()
@@ -68,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandler loginFailureHandler() {
         return (request, response, e) -> {
             request.getSession().setAttribute("error", "Your username or password invalid");
-            response.sendRedirect(String.format("%s/login", environment.getProperty("server.servlet.context-path")));
+            response.sendRedirect(environment.getProperty("server.servlet.context-path"));
         };
     }
 

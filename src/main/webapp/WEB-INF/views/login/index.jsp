@@ -10,10 +10,10 @@
 </head>
 <body>
   <c:if test="${not empty result}">
-  <div class="alert alert-${result.status == 'SUCCESS' ? 'success' : 'danger'} ml-auto position-absolute message" role="alert">
-      ${result.message}
-  </div>
-</c:if>
+    <div class="alert alert-${result.status == 'SUCCESS' ? 'success' : 'danger'} ml-auto position-absolute message" role="alert">
+        ${result.message}
+    </div>
+  </c:if>
   <div class="container">
     <h1 class="text-center mt-4 mb-4">Login</h1>
     <form id="login" method="post" action="process-login">
@@ -35,7 +35,18 @@
         <input type="checkbox" name="remember-me" class="form-check-input" id="remember-me">
         <label class="form-check-label" for="remember-me">Remember me</label>
       </div>
-      <button type="submit" class="btn btn-primary">Login</button>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </div>
+    </form>
+    <form action="">
+      <div class="form-group text-center">
+        <a href="${contextPath}/forgot-password">Forgot password?</a>
+      </div>
+    </form>
+    <hr/>
+    <form action="">
+      <button type="submit" class="btn btn-success w-100">Register</button>
     </form>
   </div>
   <script src="${contextPath}/webjars/jquery/jquery.min.js"></script>

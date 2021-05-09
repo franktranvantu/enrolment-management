@@ -3,7 +3,9 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
-  <title>Change Password</title>
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="${contextPath}/webjars/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="${contextPath}/common.css">
   <style>
     .container {
         max-width: 500px;
@@ -21,25 +23,16 @@
     <div class="card border-0">
       <div class="card-header bg-transparent">
         <div class="mt-2 mb-4 d-flex">
-          <h4 class="card-title mb-0">Change password</h4>
+          <h4 class="card-title mb-0">Reset your password</h4>
         </div>
       </div>
       <div class="card-body">
-        <form action="${contextPath}/change-password" method="post" id="change-password">
-          <input type="hidden" name="username" value="${username}">
-          <div class="form-group row">
-            <label for="password" class="col-6 col-form-label">Current password <span class="text-danger">*</span></label>
-            <div class="col">
-              <input type="password" name="password" class="form-control" id="password" aria-describedby="password"/>
-              <div id="password" class="invalid-feedback">
-                Current password is mandatory
-              </div>
-            </div>
-          </div>
+        <form action="${contextPath}/reset-password" method="post" id="reset-password">
+          <input type="hidden" name="token" value="${token}">
           <div class="form-group row">
             <label for="new-password" class="col-6 col-form-label">New password <span class="text-danger">*</span></label>
             <div class="col">
-              <input type="password" name="newPassword" class="form-control" id="new-password" aria-describedby="new-password"/>
+              <input type="password" name="password" class="form-control" id="new-password" aria-describedby="new-password"/>
               <div id="new-password" class="invalid-feedback">
                 New password is mandatory
               </div>
@@ -67,5 +60,10 @@
       </div>
     </div>
   </div>
+
+  <script src="${contextPath}/webjars/jquery/jquery.min.js"></script>
+  <script src="${contextPath}/webjars/lodash/lodash.min.js"></script>
+  <script src="${contextPath}/common.js"></script>
+  <script src="${contextPath}/profile/reset-password.js"></script>
 </body>
 </html>

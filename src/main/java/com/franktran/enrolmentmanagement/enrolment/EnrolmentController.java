@@ -5,6 +5,7 @@ import com.franktran.enrolmentmanagement.course.CourseService;
 import com.franktran.enrolmentmanagement.dto.ResultDto;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import com.franktran.enrolmentmanagement.student.StudentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;

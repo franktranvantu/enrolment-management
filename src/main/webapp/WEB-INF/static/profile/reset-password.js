@@ -3,14 +3,7 @@ $(function() {
         window.location.href = '/';
     });
 
-    $('form#change-password').submit(() => {
-        const passwordInput = $('input#password');
-        if (_.isEmpty(passwordInput.val())) {
-            passwordInput.addClass('is-invalid');
-            return false;
-        }
-        passwordInput.removeClass('is-invalid');
-
+    $('form#reset-password').submit(() => {
         const newPasswordInput = $('input#new-password');
         if (_.isEmpty(newPasswordInput.val())) {
             newPasswordInput.addClass('is-invalid');

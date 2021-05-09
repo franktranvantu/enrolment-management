@@ -1,3 +1,7 @@
+server:
+  servlet:
+    context-path: /
+
 spring:
   profiles:
     active: heroku
@@ -12,3 +16,15 @@ spring:
   web:
     resources:
       static-locations: /WEB-INF/static
+
+  mail:
+    host: smtp.gmail.com
+    username: franktranvantu@gmail.com
+    password:
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
