@@ -9,6 +9,7 @@
         <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp" />
     </definition>
 
+    <definition name="access-denied" template="/WEB-INF/views/403/index.jsp"></definition>
     <definition name="login" template="/WEB-INF/views/login/index.jsp"></definition>
     <definition name="register" template="/WEB-INF/views/login/register.jsp"></definition>
     <definition name="forgot-password" template="/WEB-INF/views/login/forgot-password.jsp"></definition>
