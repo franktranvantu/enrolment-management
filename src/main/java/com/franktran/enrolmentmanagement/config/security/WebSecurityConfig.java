@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/common.css", "/common.js", "/login/**", "/webjars/**");
+        web.ignoring().antMatchers("/common.css", "/common.js", "/login/**", "/webjars/**", "/favicon.ico", "/error");
     }
 
     @Override
@@ -43,9 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
+                .loginPage("/login")
                 .loginProcessingUrl("/process-login")
-                .defaultSuccessUrl("/")
                 .failureHandler(loginFailureHandler())
             .and()
                 .rememberMe() // default is 2 weeks
@@ -77,7 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, authentication) -> {
             request.getSession().setAttribute("message", "Logout successful!");
-            response.sendRedirect(environment.getProperty("server.servlet.context-path"));
+            response.sendRedirect("");
         };
     }
 
