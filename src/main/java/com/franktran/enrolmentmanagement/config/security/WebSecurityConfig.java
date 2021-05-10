@@ -1,5 +1,6 @@
 package com.franktran.enrolmentmanagement.config.security;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -69,14 +70,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationFailureHandler loginFailureHandler() {
         return (request, response, e) -> {
             request.getSession().setAttribute("error", "Your username or password invalid");
-            response.sendRedirect(environment.getProperty("server.servlet.context-path"));
+            response.sendRedirect(StringUtils.EMPTY);
         };
     }
 
     private LogoutSuccessHandler logoutSuccessHandler() {
         return (request, response, authentication) -> {
             request.getSession().setAttribute("message", "Logout successful!");
-            response.sendRedirect("");
+            response.sendRedirect(StringUtils.EMPTY);
         };
     }
 
