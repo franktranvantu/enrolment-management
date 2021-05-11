@@ -1,21 +1,20 @@
 $(function() {
-  const start = moment().subtract(30, 'days');
-  const end = moment();
-
-  function cb(start, end) {
-    $('#dobRange').val(start.format('DD/MM/yyyy') + ' - ' + end.format('DD/MM/yyyy'));
-  }
-
   $('#dobRange').daterangepicker({
-    locale: {
-      format: 'DD/MM/YYYY'
-    },
     opens: 'center',
-    startDate: start,
-    endDate: end,
-  }, cb);
+    autoUpdateInput: false,
+    locale: {
+      format: 'DD/MM/YYYY',
+      cancelLabel: 'Clear'
+    }
+  });
 
-  cb(start, end);
+  $('#dobRange').on('apply.daterangepicker', function(ev, picker) {
+    $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+  });
+
+  $('#dobRange').on('cancel.daterangepicker', function(ev, picker) {
+    $('#dobRange').val('');
+  });
 
   $('#student').DataTable({
     searching: false,
@@ -29,10 +28,6 @@ $(function() {
     let action;
     let method;
     switch (id) {
-      case 'search':
-        action = '';
-        method = 'GET';
-        break;
       case 'export-excel':
         action = '/export-excel';
         method = 'POST';
@@ -41,6 +36,9 @@ $(function() {
         action = '/export-pdf';
         method = 'POST';
         break;
+      default:
+        action = '';
+        method = 'GET';
     }
     const $form = $(`<form action="/student${action}" method="${method}"></form>`);
     $form.append(`<input type="hidden" name="name" value="${name}">`);

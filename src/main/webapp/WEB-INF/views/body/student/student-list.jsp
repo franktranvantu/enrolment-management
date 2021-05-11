@@ -37,11 +37,11 @@
           <div class="col">
             <div class="form-group">
               <label for="dobRange" class="form-label">Birthday</label>
-              <c:set var="dobRange" value="" />
+              <c:set var="dob" value="" />
               <c:if test="${not empty dobRange}">
-                <c:set var="dobRange">${dobRange.from} - ${dobRange.to}</c:set>
+                <c:set var="dob"><spring:eval expression="dobRange"/></c:set>
               </c:if>
-              <input type="input" class="form-control" id="dobRange" value="${dobRange}">
+              <input type="input" class="form-control" id="dobRange" value="${dob}">
             </div>
           </div>
         </div>
