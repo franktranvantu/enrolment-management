@@ -8,10 +8,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+import static com.franktran.enrolmentmanagement.util.Utility.DATE_FORMAT;
+
 @Component
 public class DateFormatter implements Formatter<LocalDate> {
-
-    private static final String DATE_FORMAT = "dd/MM/yyyy";
 
     @Override
     public LocalDate parse(String text, Locale locale) throws ParseException {

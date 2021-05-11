@@ -1,6 +1,7 @@
 package com.franktran.enrolmentmanagement.student;
 
 import com.franktran.enrolmentmanagement.config.security.UserRole;
+import com.franktran.enrolmentmanagement.dto.DateRange;
 import com.franktran.enrolmentmanagement.dto.ResultDto;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,14 +46,15 @@ public class StudentController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ENROLMENT', 'ROLE_COURSE', 'ROLE_STUDENT')")
   public String index(@RequestParam(required = false) String name,
                       @RequestParam(required = false) String email,
-                      @RequestParam(required = false) LocalDate dob,
+                      @RequestParam(required = false) DateRange dobRange,
                       Model model,
                       Authentication authentication) {
     UserRole[] editableRoles = new UserRole[] {ADMIN, STUDENT};
-    List<Student> students = studentService.getAllStudents(name, email, dob);
+    List<Student> students = studentService.getAllStudents(name, email, dobRange);
     model.addAttribute("username", authentication.getName());
     model.addAttribute("students", students);
-    model.addAttribute("student", new Student(name, email, dob));
+    model.addAttribute("student", new Student(name, email, null));
+    model.addAttribute("dobRange", dobRange);
     model.addAttribute("isEditable", UserRole.isEditable(editableRoles, authentication.getAuthorities()));
     return "student-list";
   }
@@ -61,9 +63,9 @@ public class StudentController {
   @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
   public String exportExcel(@RequestParam(required = false) String name,
                             @RequestParam(required = false) String email,
-                            @RequestParam(required = false) LocalDate dob,
+                            @RequestParam(required = false) DateRange dobRange,
                             HttpServletResponse response) throws IOException {
-    List<Student> students = studentService.getAllStudents(name, email, dob);
+    List<Student> students = studentService.getAllStudents(name, email, dobRange);
     studentExcelExporter.export(response, students, "Students.xlsx");
     return "forward:/student";
   }
@@ -72,9 +74,9 @@ public class StudentController {
   @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
   public String exportPdf(@RequestParam(required = false) String name,
                             @RequestParam(required = false) String email,
-                            @RequestParam(required = false) LocalDate dob,
+                            @RequestParam(required = false) DateRange dobRange,
                             HttpServletResponse response) throws IOException {
-    List<Student> students = studentService.getAllStudents(name, email, dob);
+    List<Student> students = studentService.getAllStudents(name, email, dobRange);
     studentPdfExporter.export(response, students, "Students.pdf");
     return "forward:/student";
   }

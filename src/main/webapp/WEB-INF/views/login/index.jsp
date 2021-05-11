@@ -6,7 +6,6 @@
   <title>Login</title>
   <link rel="stylesheet" href="${contextPath}/webjars/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="${contextPath}/common.css">
-  <link rel="stylesheet" href="${contextPath}/login/index.css">
 </head>
 <body>
   <c:if test="${not empty result}">

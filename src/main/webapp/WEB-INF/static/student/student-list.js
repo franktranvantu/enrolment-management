@@ -1,10 +1,21 @@
 $(function() {
-  const options = {
-    format: 'dd/mm/yyyy',
-    todayHighlight: true,
-    autoclose: true
+  const start = moment().subtract(30, 'days');
+  const end = moment();
+
+  function cb(start, end) {
+    $('#dobRange').val(start.format('DD/MM/yyyy') + ' - ' + end.format('DD/MM/yyyy'));
   }
-  $('#dob').datepicker(options);
+
+  $('#dobRange').daterangepicker({
+    locale: {
+      format: 'DD/MM/YYYY'
+    },
+    opens: 'center',
+    startDate: start,
+    endDate: end,
+  }, cb);
+
+  cb(start, end);
 
   $('#student').DataTable({
     searching: false,
@@ -14,7 +25,7 @@ $(function() {
 
   $('#search, #export-excel, #export-pdf').click(e => {
     const id = $(e.target).attr('id');
-    const {name, email, dob} = getFilterInfo();
+    const {name, email, dobRange} = getFilterInfo();
     let action;
     let method;
     switch (id) {
@@ -34,7 +45,7 @@ $(function() {
     const $form = $(`<form action="/student${action}" method="${method}"></form>`);
     $form.append(`<input type="hidden" name="name" value="${name}">`);
     $form.append(`<input type="hidden" name="email" value="${email}">`);
-    $form.append(`<input type="hidden" name="dob" value="${dob}">`);
+    $form.append(`<input type="hidden" name="dobRange" value="${dobRange}">`);
     $(document.body).append($form);
     $($form).submit();
   });
@@ -63,11 +74,11 @@ $(function() {
   function getFilterInfo() {
     const name = $('input#name').val();
     const email = $('input#email').val();
-    const dob = $('input#dob').val();
+    const dobRange = $('input#dobRange').val();
     return {
       name,
       email,
-      dob
+      dobRange
     }
   }
 });

@@ -36,8 +36,12 @@
           </div>
           <div class="col">
             <div class="form-group">
-              <label for="dob" class="form-label">Birthday</label>
-              <input type="input" class="form-control" id="dob" value="${student.dob}">
+              <label for="dobRange" class="form-label">Birthday</label>
+              <c:set var="dobRange" value="" />
+              <c:if test="${not empty dobRange}">
+                <c:set var="dobRange">${dobRange.from} - ${dobRange.to}</c:set>
+              </c:if>
+              <input type="input" class="form-control" id="dobRange" value="${dobRange}">
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="${contextPath}/webjars/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="${contextPath}/webjars/datatables/css/jquery.dataTables.css">
     <link rel="stylesheet" href="${contextPath}/webjars/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="${contextPath}/webjars/bootstrap-daterangepicker/css/bootstrap-daterangepicker.css">
     <link rel="stylesheet" href="${contextPath}/webjars/font-awesome/css/all.css">
     <link rel="stylesheet" href="${contextPath}/common.css">
     <c:set var="cssLink"><tiles:getAsString name="cssLink" /></c:set>
@@ -20,9 +21,11 @@
     <tiles:insertAttribute name="footer" />
     <script src="${contextPath}/webjars/jquery/jquery.min.js"></script>
     <script src="${contextPath}/webjars/lodash/lodash.min.js"></script>
+    <script src="${contextPath}/webjars/momentjs/min/moment.min.js"></script>
     <script src="${contextPath}/webjars/bootstrap/js/bootstrap.min.js"></script>
     <script src="${contextPath}/webjars/datatables/js/jquery.dataTables.min.js"></script>
     <script src="${contextPath}/webjars/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+    <script src="${contextPath}/webjars/bootstrap-daterangepicker/js/bootstrap-daterangepicker.js"></script>
     <script src="${contextPath}/common.js"></script>
     <c:set var="jsLink"><tiles:getAsString name="jsLink" /></c:set>
     <c:if test="${not empty jsLink}">

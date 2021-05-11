@@ -1,5 +1,6 @@
 package com.franktran.enrolmentmanagement.student;
 
+import com.franktran.enrolmentmanagement.dto.DateRange;
 import com.franktran.enrolmentmanagement.dto.SearchCriteria;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,10 +24,10 @@ public class StudentService {
     return studentRepository.findAll();
   }
 
-  public List<Student> getAllStudents(String name, String email, LocalDate dob) {
+  public List<Student> getAllStudents(String name, String email, DateRange dobRange) {
     StudentSpecification nameSpec = new StudentSpecification(new SearchCriteria("name", ":", name));
     StudentSpecification emailSpec = new StudentSpecification(new SearchCriteria("email", ":", email));
-    StudentSpecification dobSpec = new StudentSpecification(new SearchCriteria("dob", ":", dob));
+    StudentSpecification dobSpec = new StudentSpecification(new SearchCriteria("dob", ":", dobRange));
     return studentRepository.findAll(Specification.where(nameSpec).and(emailSpec).and(dobSpec));
   }
 
