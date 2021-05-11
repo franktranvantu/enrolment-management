@@ -25,9 +25,9 @@ public class StudentService {
   }
 
   public List<Student> getAllStudents(String name, String email, DateRange dobRange) {
-    StudentSpecification nameSpec = new StudentSpecification(new SearchCriteria("name", ":", name));
-    StudentSpecification emailSpec = new StudentSpecification(new SearchCriteria("email", ":", email));
-    StudentSpecification dobSpec = new StudentSpecification(new SearchCriteria("dob", ":", dobRange));
+    StudentSpecification nameSpec = new StudentSpecification(new SearchCriteria("name", name));
+    StudentSpecification emailSpec = new StudentSpecification(new SearchCriteria("email", email));
+    StudentSpecification dobSpec = new StudentSpecification(new SearchCriteria("dob", dobRange));
     return studentRepository.findAll(Specification.where(nameSpec).and(emailSpec).and(dobSpec));
   }
 
