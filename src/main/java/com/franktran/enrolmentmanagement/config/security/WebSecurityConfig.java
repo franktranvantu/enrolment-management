@@ -2,7 +2,6 @@ package com.franktran.enrolmentmanagement.config.security;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -20,19 +19,17 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final Environment environment;
     private final PasswordEncoder passwordEncoder;
     private final UserDetailsService userDetailsService;
 
-    public WebSecurityConfig(Environment environment, PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
-        this.environment = environment;
+    public WebSecurityConfig(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/common.css", "/common.js", "/login/**", "/webjars/**", "/favicon.ico", "/error");
+        web.ignoring().antMatchers("/common.css", "/common.js", "/webjars/**");
     }
 
     @Override
