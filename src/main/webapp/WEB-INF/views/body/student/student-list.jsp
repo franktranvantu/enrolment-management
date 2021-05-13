@@ -29,12 +29,12 @@
           </div>
           <div class="col">
             <div class="form-group">
-              <label for="dobRange" class="form-label">Birthday</label>
+              <label for="dobRange" class="form-label">Birthday Range</label>
               <c:set var="dob" value="" />
               <c:if test="${not empty dobRange}">
                 <c:set var="dob"><spring:eval expression="dobRange"/></c:set>
               </c:if>
-              <input type="input" class="form-control" id="dobRange" value="${dob}">
+              <input class="form-control" id="dobRange" value="${dob}" placeholder="dd/mm/yyyy - dd/mm/yyyy">
             </div>
           </div>
         </div>
