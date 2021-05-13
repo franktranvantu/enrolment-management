@@ -7,11 +7,6 @@
   <title>${action} Student</title>
 </head>
 <body>
-  <c:if test="${not empty result}">
-    <div class="alert alert-danger ml-auto position-absolute message" role="alert">
-        ${result.message}
-    </div>
-  </c:if>
   <div class="container w-25">
     <h1 class="text-center mt-4 mb-4">${action} Student</h1>
     <form:form action="${contextPath}/student/save-student" method="post" modelAttribute="student" id="save-student">

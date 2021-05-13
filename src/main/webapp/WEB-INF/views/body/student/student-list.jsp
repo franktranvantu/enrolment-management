@@ -8,13 +8,6 @@
   <title>Student Management</title>
 </head>
 <body>
-  <c:if test="${not empty result}">
-    <div class="alert alert-${result.status == 'SUCCESS' ? 'success' : 'danger'} ml-auto position-absolute message"
-         role="alert">
-        ${result.message}
-    </div>
-  </c:if>
-
   <div class="container">
     <div class="card border-0">
       <div class="card-header bg-transparent">
