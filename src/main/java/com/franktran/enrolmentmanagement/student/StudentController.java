@@ -9,17 +9,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,24 +94,30 @@ public class StudentController {
                             BindingResult bindingResult,
                             RedirectAttributes ra,
                             Model model) {
-    String viewName = "save-student";
     if (bindingResult.hasErrors()) {
       model.addAttribute("action", Objects.isNull(student.getId()) ? "Create" : "Update");
-      return viewName;
+      return "save-student";
     }
     ResultDto result = new ResultDto();
-    if (Objects.isNull(student.getId())) {
-      model.addAttribute("action", "Create");
-      studentService.createStudent(student, viewName);
-      result.setMessage("Created student successful!");
-    } else {
-      model.addAttribute("action", "Update");
-      studentService.updateStudent(student.getId(), student, viewName);
-      result.setMessage("Updated student successful!");
+    try {
+      if (Objects.isNull(student.getId())) {
+        model.addAttribute("action", "Create");
+        studentService.createStudent(student);
+        result.setMessage("Created student successful!");
+      } else {
+        model.addAttribute("action", "Update");
+        studentService.updateStudent(student.getId(), student);
+        result.setMessage("Updated student successful!");
+      }
+      result.setStatus(ResultStatus.SUCCESS);
+      ra.addFlashAttribute("result", result);
+      return "redirect:/student";
+    } catch (Exception e) {
+      result.setStatus(ResultStatus.FAIL);
+      result.setMessage(e.getMessage());
+      model.addAttribute("result", result);
+      return "save-student";
     }
-    result.setStatus(ResultStatus.SUCCESS);
-    ra.addFlashAttribute("result", result);
-    return "redirect:/student";
   }
 
   @PostMapping("/update-student")

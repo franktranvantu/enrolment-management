@@ -2,11 +2,11 @@ package com.franktran.enrolmentmanagement.student;
 
 import com.franktran.enrolmentmanagement.dto.DateRange;
 import com.franktran.enrolmentmanagement.dto.SearchCriteria;
-import com.franktran.enrolmentmanagement.exception.DataInValidException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,15 +35,15 @@ public class StudentService {
     return studentRepository.findById(id).orElse(null);
   }
 
-  public Student createStudent(Student student, String viewName) {
+  public Student createStudent(Student student) {
     Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
     if (studentOptional.isPresent()) {
-      throw new DataInValidException("Email already exists", viewName);
+      throw new IllegalArgumentException("Email already exists");
     }
     return studentRepository.save(student);
   }
 
-  public Student updateStudent(long studentId, Student student, String viewName) {
+  public Student updateStudent(long studentId, Student student) {
     Student existStudent = studentRepository.findById(studentId).orElseThrow(() -> new IllegalArgumentException(String.format("Student with id %s not exists", studentId)));
     if (Objects.nonNull(student.getName()) && !Objects.equals(existStudent.getName(), student.getName())) {
       existStudent.setName(student.getName());
