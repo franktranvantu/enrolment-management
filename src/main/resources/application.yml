@@ -1,12 +1,10 @@
 spring:
   profiles:
-    active: docker
+    active: h2
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: true
   mvc:
     view:
       prefix: /WEB-INF/views/
