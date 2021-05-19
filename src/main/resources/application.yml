@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: h2
+    active: heroku
   jpa:
     show-sql: true
     hibernate:
