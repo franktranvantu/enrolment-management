@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.franktran</groupId>
     <artifactId>enrolment-management</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>enrolment-management</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -140,7 +140,6 @@
     </dependencies>
 
     <build>
-        <finalName>enrolment-management</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
