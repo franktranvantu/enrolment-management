@@ -2,6 +2,7 @@ package com.franktran.enrolmentmanagement.student;
 
 import com.franktran.enrolmentmanagement.dto.DateRange;
 import com.franktran.enrolmentmanagement.dto.SearchCriteria;
+import com.franktran.enrolmentmanagement.exception.StudentNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class StudentService {
   }
 
   public Student getStudentById(long id) {
-    return studentRepository.findById(id).orElse(null);
+    return studentRepository.findById(id).orElseThrow(() -> new StudentNotFoundException(id));
   }
 
   public Student createStudent(Student student) {
