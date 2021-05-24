@@ -3,3 +3,8 @@ spring:
     url: jdbc:mysql://y5svr1t2r5xudqeq.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/kww95zc4ilgab452
     username: zm6si3ec4v1f6yee
     password: au8kzr57uqhzidmd
+
+limit:
+  enrolment: 50
+  course: 50
+  student: 50

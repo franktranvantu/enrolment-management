@@ -5,6 +5,12 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create-drop
+    properties:
+      hibernate:
+        generate_statistics: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
   mvc:
     view:
       prefix: /WEB-INF/views/
