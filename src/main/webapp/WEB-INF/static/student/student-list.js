@@ -22,25 +22,20 @@ $(function() {
     scroller: true
   });
 
-  $('#search, #export-excel, #export-pdf').click(e => {
+  $('#export-excel, #export-pdf').click(e => {
+    e.preventDefault();
     const id = $(e.target).attr('id');
     const {name, email, dobRange} = getFilterInfo();
     let action;
-    let method;
     switch (id) {
       case 'export-excel':
         action = '/export-excel';
-        method = 'POST';
         break;
       case 'export-pdf':
         action = '/export-pdf';
-        method = 'POST';
         break;
-      default:
-        action = '';
-        method = 'GET';
     }
-    const $form = $(`<form action="/student${action}" method="${method}"></form>`);
+    const $form = $(`<form action="/student${action}"></form>`);
     $form.append(`<input type="hidden" name="name" value="${name}">`);
     $form.append(`<input type="hidden" name="email" value="${email}">`);
     $form.append(`<input type="hidden" name="dobRange" value="${dobRange}">`);

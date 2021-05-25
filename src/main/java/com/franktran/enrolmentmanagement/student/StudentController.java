@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.franktran.enrolmentmanagement.config.security.UserRole.ADMIN;
@@ -28,13 +29,11 @@ import static com.franktran.enrolmentmanagement.config.security.UserRole.STUDENT
 public class StudentController {
 
   private final StudentService studentService;
-  private final StudentExcelExporter studentExcelExporter;
-  private final StudentPdfExporter studentPdfExporter;
+  private final StudentExportService studentExportService;
 
-  public StudentController(StudentService studentService, StudentExcelExporter studentExcelExporter, StudentPdfExporter studentPdfExporter) {
+  public StudentController(StudentService studentService, StudentExportService studentExportService) {
     this.studentService = studentService;
-    this.studentExcelExporter = studentExcelExporter;
-    this.studentPdfExporter = studentPdfExporter;
+    this.studentExportService = studentExportService;
   }
 
   @ModelAttribute("username")
@@ -59,25 +58,15 @@ public class StudentController {
     return "student-list";
   }
 
-  @PostMapping("/export-excel")
+  @GetMapping("/export-{type}")
   @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
   public String exportExcel(@RequestParam(required = false) String name,
                             @RequestParam(required = false) String email,
                             @RequestParam(required = false) DateRange dobRange,
+                            @PathVariable String type,
                             HttpServletResponse response) throws IOException {
     List<Student> students = studentService.getAllStudents(name, email, dobRange);
-    studentExcelExporter.export(response, students, "Students.xlsx");
-    return "forward:/student";
-  }
-
-  @PostMapping("/export-pdf")
-  @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
-  public String exportPdf(@RequestParam(required = false) String name,
-                            @RequestParam(required = false) String email,
-                            @RequestParam(required = false) DateRange dobRange,
-                            HttpServletResponse response) throws IOException {
-    List<Student> students = studentService.getAllStudents(name, email, dobRange);
-    studentPdfExporter.export(response, students, "Students.pdf");
+    studentExportService.export(response, students, type);
     return "forward:/student";
   }
 

@@ -7,7 +7,7 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.format.Formatter;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
-public class StudentPdfExporter {
+@Service
+public class StudentPdfExporter implements StudentExporter {
 
   private final Formatter<LocalDate> dateFormatter;
 
@@ -53,6 +53,7 @@ public class StudentPdfExporter {
     }
   }
 
+  @Override
   public void export(HttpServletResponse response, List<Student> students, String fileName) throws DocumentException, IOException {
     Document document = new Document(PageSize.A4);
     PdfWriter.getInstance(document, response.getOutputStream());

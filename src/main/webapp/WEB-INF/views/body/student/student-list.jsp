@@ -14,47 +14,67 @@
         <div class="mt-2 mb-4 d-flex">
           <h4 class="card-title mb-0">Search students</h4>
         </div>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <label for="name" class="form-label">Name</label>
-              <input type="input" class="form-control" id="name" value="${student.name}">
+        <form action="${contextPath}/student">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input type="input" name="name" class="form-control" id="name" value="${student.name}">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="input" name="email" class="form-control" id="email" value="${student.email}">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="dobRange" class="form-label">Birthday Range</label>
+                <c:set var="dob" value="" />
+                <c:if test="${not empty dobRange}">
+                  <c:set var="dob"><spring:eval expression="dobRange"/></c:set>
+                </c:if>
+                <input class="form-control" name="dob" id="dobRange" value="${dob}" placeholder="dd/mm/yyyy - dd/mm/yyyy">
+              </div>
             </div>
           </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="email" class="form-label">Email</label>
-              <input type="input" class="form-control" id="email" value="${student.email}">
+          <div class="row">
+            <div class="col d-flex align-items-end justify-content-end">
+              <div class="form-group">
+                <c:if test="${isEditable}">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-file-export"></i> Export
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="" id="export-pdf"><i class="fas fa-file-pdf"></i> Export PDF</a>
+                      <a class="dropdown-item" href="" id="export-excel"><i class="fas fa-file-excel"></i> Export Excel</a>
+                    </div>
+                  </div>
+                </c:if>
+                <button type="submit" class="btn btn-success" id="search"><i class="fas fa-search"></i> Search</button>
+              </div>
             </div>
           </div>
-          <div class="col">
-            <div class="form-group">
-              <label for="dobRange" class="form-label">Birthday Range</label>
-              <c:set var="dob" value="" />
-              <c:if test="${not empty dobRange}">
-                <c:set var="dob"><spring:eval expression="dobRange"/></c:set>
-              </c:if>
-              <input class="form-control" id="dobRange" value="${dob}" placeholder="dd/mm/yyyy - dd/mm/yyyy">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col d-flex align-items-end justify-content-end">
-            <div class="form-group">
-              <c:if test="${isEditable}">
-                <button class="btn btn-info" id="export-pdf"><i class="fas fa-file-pdf"></i> Export PDF</button>
-                <button class="btn btn-secondary" id="export-excel"><i class="fas fa-file-excel"></i> Export Excel</button>
-              </c:if>
-              <button class="btn btn-success" id="search"><i class="fas fa-search"></i> Search</button>
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
       <div class="card-body">
         <div class="mt-4 mb-4 d-flex justify-content-between align-items-center">
           <h4 class="card-title mb-0">All Students List</h4>
           <c:if test="${isEditable}">
-            <a href="${contextPath}/student/create-student" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add new</a>
+            <div class="form-group mb-0">
+              <div class="btn-group">
+                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-file-import"></i> Import
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="" id="import-pdf"><i class="fas fa-file-pdf"></i> Import PDF</a>
+                  <a class="dropdown-item" href="" id="import-excel"><i class="fas fa-file-excel"></i> Import Excel</a>
+                </div>
+              </div>
+              <a href="${contextPath}/student/create-student" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add new</a>
+            </div>
           </c:if>
         </div>
         <table id="student" class="table">
