@@ -18,7 +18,6 @@ spring:
   web:
     resources:
       static-locations: /WEB-INF/static
-
   mail:
     host: smtp.gmail.com
     username: java.mail.0905@gmail.com
@@ -30,3 +29,6 @@ spring:
           auth: true
           starttls:
             enable: true
+sentry:
+  dsn: https://d9548dc031ff4309a70df305ae3cd9df@o722716.ingest.sentry.io/5781749
+  exception-resolver-order: 2147483647

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import io.sentry.Sentry;
 
 @ControllerAdvice
 public class StudentAdvice {
@@ -16,6 +17,7 @@ public class StudentAdvice {
   @ExceptionHandler(StudentNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public String studentNotFoundHandler(StudentNotFoundException ex) {
+//    Sentry.captureException(ex);
     return ex.getMessage();
   }
 
@@ -23,6 +25,7 @@ public class StudentAdvice {
   @ExceptionHandler(EmailAlreadyExistException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public String emailAlreadyExistHandler(EmailAlreadyExistException ex) {
+    Sentry.captureException(ex);
     return ex.getMessage();
   }
 
@@ -30,6 +33,7 @@ public class StudentAdvice {
   @ExceptionHandler(StudentReferByOtherException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public String studentReferByOtherHandler(StudentReferByOtherException ex) {
+    Sentry.captureException(ex);
     return ex.getMessage();
   }
 }
