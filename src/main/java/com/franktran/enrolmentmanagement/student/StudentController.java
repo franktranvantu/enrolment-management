@@ -4,6 +4,7 @@ import com.franktran.enrolmentmanagement.config.security.UserRole;
 import com.franktran.enrolmentmanagement.dto.DateRange;
 import com.franktran.enrolmentmanagement.dto.ResultDto;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
+import io.sentry.Sentry;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -105,6 +106,7 @@ public class StudentController {
       result.setStatus(ResultStatus.FAIL);
       result.setMessage(e.getMessage());
       model.addAttribute("result", result);
+      Sentry.captureException(e);
       return "save-student";
     }
   }
@@ -129,6 +131,7 @@ public class StudentController {
     } catch (Exception e) {
       result.setStatus(ResultStatus.FAIL);
       result.setMessage(e.getMessage());
+      Sentry.captureException(e);
     }
     ra.addFlashAttribute("result", result);
     return "redirect:/student";
