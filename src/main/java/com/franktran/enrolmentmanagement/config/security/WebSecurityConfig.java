@@ -1,5 +1,7 @@
 package com.franktran.enrolmentmanagement.config.security;
 
+import io.sentry.Sentry;
+import io.sentry.SentryLevel;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -71,7 +73,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private AuthenticationFailureHandler loginFailureHandler() {
         return (request, response, e) -> {
-            request.getSession().setAttribute("error", "Your username or password invalid");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            Sentry.captureMessage(String.format("Username '%s' and password '%s' is invalid", username, password), SentryLevel.INFO);
+            request.getSession().setAttribute("error", "Your username or password is invalid");
             response.sendRedirect(StringUtils.EMPTY);
         };
     }
