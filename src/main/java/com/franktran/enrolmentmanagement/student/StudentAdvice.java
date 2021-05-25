@@ -17,7 +17,7 @@ public class StudentAdvice {
   @ExceptionHandler(StudentNotFoundException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public String studentNotFoundHandler(StudentNotFoundException ex) {
-//    Sentry.captureException(ex);
+    Sentry.captureException(ex);
     return ex.getMessage();
   }
 
