@@ -75,7 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return (request, response, e) -> {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            Sentry.captureMessage(String.format("Username '%s' and password '%s' is invalid", username, password), SentryLevel.INFO);
+            Sentry.captureMessage(String.format("Username '%s' or password '%s' is invalid", username, password), SentryLevel.INFO);
             request.getSession().setAttribute("error", "Your username or password is invalid");
             response.sendRedirect(StringUtils.EMPTY);
         };
