@@ -98,12 +98,10 @@
               <td class="text-center"><spring:eval expression="student.dob"/></td>
               <c:if test="${isEditable}">
                 <td class="text-center">
-                  <form class="mb-0" action="${contextPath}/student/update-student" method="post">
+                  <form class="mb-0" action="${contextPath}/student/update-student">
                     <input type="hidden" name="id" value="${student.id}"/>
-                    <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
-                    <a href="" class="btn btn-sm btn-danger delete-student-button" data-id="${student.id}">
-                      <i class="fas fa-trash"></i>
-                    </a>
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
+                    <button type="button" class="btn btn-sm btn-danger delete-student-button" data-id="${student.id}"><i class="fas fa-trash"></i></button>
                   </form>
                 </td>
               </c:if>

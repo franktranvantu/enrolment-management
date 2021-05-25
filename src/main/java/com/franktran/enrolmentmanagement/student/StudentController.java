@@ -109,7 +109,7 @@ public class StudentController {
     }
   }
 
-  @PostMapping("/update-student")
+  @GetMapping("/update-student")
   @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
   public String showUpdateStudent(@RequestParam long id, Model model) {
     Student student = studentService.getStudentById(id);
