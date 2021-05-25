@@ -1,5 +1,6 @@
 package com.franktran.enrolmentmanagement.student;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.franktran.enrolmentmanagement.enrolment.Enrolment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Student {
   private String email;
   private LocalDate dob;
   @OneToMany(mappedBy = "student")
+  @JsonIgnore
   private Set<Enrolment> enrolments = new HashSet<>();
 
   public Student(String name, String email, LocalDate dob) {

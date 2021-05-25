@@ -1,5 +1,6 @@
 package com.franktran.enrolmentmanagement.student;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,28 +16,29 @@ public class StudentResource {
   }
 
   @GetMapping
-  public List<Student> all() {
-    return studentService.getAllStudents();
+  public ResponseEntity<List<Student>> all() {
+    return ResponseEntity.ok(studentService.getAllStudents());
   }
 
   @GetMapping("/{id}")
-  public Student one(@PathVariable Long id) {
-    return studentService.getStudentById(id);
+  public ResponseEntity<Student> one(@PathVariable Long id) {
+    return ResponseEntity.ok(studentService.getStudentById(id));
   }
 
   @PostMapping
-  public Student newStudent(@RequestBody Student newStudent) {
-    return studentService.createStudent(newStudent);
+  public ResponseEntity<Student> newStudent(@RequestBody Student newStudent) {
+    return ResponseEntity.ok(studentService.createStudent(newStudent));
   }
 
   @PutMapping("/{id}")
-  public Student replaceStudent(@PathVariable Long id, @RequestBody Student newStudent) {
-    return studentService.updateStudent(id, newStudent);
+  public ResponseEntity<Student> replaceStudent(@PathVariable Long id, @RequestBody Student newStudent) {
+    return ResponseEntity.ok(studentService.updateStudent(id, newStudent));
   }
 
   @DeleteMapping("/{id}")
-  public void deleteStudent(@PathVariable Long id) {
+  public ResponseEntity deleteStudent(@PathVariable Long id) {
     studentService.deleteStudent(id);
+    return ResponseEntity.ok().build();
   }
 
 }

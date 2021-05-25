@@ -1,5 +1,6 @@
 package com.franktran.enrolmentmanagement.enrolment;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.franktran.enrolmentmanagement.course.Course;
 import com.franktran.enrolmentmanagement.student.Student;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class Enrolment {
       inverseJoinColumns = {@JoinColumn(name = "student_id")}
   )
   @NotNull(message = "Student is mandatory")
+  @JsonIgnore
   private Student student;
 
   @ManyToOne
@@ -38,6 +40,7 @@ public class Enrolment {
       inverseJoinColumns = {@JoinColumn(name = "course_id")}
   )
   @NotNull(message = "Course is mandatory")
+  @JsonIgnore
   private Course course;
 
   @NotBlank(message = "Semester is mandatory")

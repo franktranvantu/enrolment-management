@@ -1,5 +1,6 @@
 package com.franktran.enrolmentmanagement.course;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.franktran.enrolmentmanagement.enrolment.Enrolment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +25,7 @@ public class Course {
   @NotBlank(message = "Name is mandatory")
   private String name;
   @OneToMany(mappedBy = "course")
+  @JsonIgnore
   private Set<Enrolment> enrolments = new HashSet<>();
 
   public Course(String name) {
