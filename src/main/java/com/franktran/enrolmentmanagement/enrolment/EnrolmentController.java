@@ -2,10 +2,9 @@ package com.franktran.enrolmentmanagement.enrolment;
 
 import com.franktran.enrolmentmanagement.config.security.UserRole;
 import com.franktran.enrolmentmanagement.course.CourseService;
-import com.franktran.enrolmentmanagement.dto.ResultDto;
+import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import com.franktran.enrolmentmanagement.student.StudentService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -71,7 +70,7 @@ public class EnrolmentController {
             model.addAttribute("action", Objects.isNull(enrolment.getId()) ? "Create" : "Update");
             return "save-enrolment";
         }
-        ResultDto result = new ResultDto();
+        Result result = new Result();
         try {
             if (Objects.isNull(enrolment.getId())) {
                 model.addAttribute("action", "Create");
@@ -114,7 +113,7 @@ public class EnrolmentController {
     @PostMapping("/delete-enrolment")
     @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'ENROLMENT:WRITE')")
     public String deleteEnrolment(@RequestParam long id, RedirectAttributes ra) {
-        ResultDto result = new ResultDto();
+        Result result = new Result();
         try {
             enrolmentService.deleteEnrolmentById(id);
             result.setStatus(ResultStatus.SUCCESS);

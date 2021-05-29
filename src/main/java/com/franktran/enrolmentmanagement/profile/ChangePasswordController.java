@@ -1,7 +1,7 @@
 package com.franktran.enrolmentmanagement.profile;
 
 import com.franktran.enrolmentmanagement.config.security.auth.UserService;
-import com.franktran.enrolmentmanagement.dto.ResultDto;
+import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,7 @@ public class ChangePasswordController {
                                       @RequestParam String password,
                                       @RequestParam String newPassword,
                                       RedirectAttributes ra) {
-    ResultDto result = new ResultDto();
+    Result result = new Result();
     try {
       userService.changePassword(username, password, newPassword);
       result.setStatus(ResultStatus.SUCCESS);

@@ -1,6 +1,6 @@
 package com.franktran.enrolmentmanagement.login;
 
-import com.franktran.enrolmentmanagement.dto.ResultDto;
+import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLogin(Model model, HttpSession httpSession) {
-        ResultDto result = new ResultDto();
+        Result result = new Result();
         Object error = httpSession.getAttribute("error");
         if (Objects.nonNull(error)) {
             result.setStatus(ResultStatus.FAIL);

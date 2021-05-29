@@ -2,7 +2,7 @@ package com.franktran.enrolmentmanagement.student;
 
 import com.franktran.enrolmentmanagement.config.security.UserRole;
 import com.franktran.enrolmentmanagement.dto.DateRange;
-import com.franktran.enrolmentmanagement.dto.ResultDto;
+import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import io.sentry.Sentry;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,9 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import static com.franktran.enrolmentmanagement.config.security.UserRole.ADMIN;
@@ -88,7 +86,7 @@ public class StudentController {
       model.addAttribute("action", Objects.isNull(student.getId()) ? "Create" : "Update");
       return "save-student";
     }
-    ResultDto result = new ResultDto();
+    Result result = new Result();
     try {
       if (Objects.isNull(student.getId())) {
         model.addAttribute("action", "Create");
@@ -123,7 +121,7 @@ public class StudentController {
   @PostMapping("/delete-student")
   @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
   public String deleteStudent(@RequestParam long id, RedirectAttributes ra) {
-    ResultDto result = new ResultDto();
+    Result result = new Result();
     try {
       studentService.deleteStudent(id);
       result.setStatus(ResultStatus.SUCCESS);

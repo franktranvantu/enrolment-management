@@ -2,7 +2,7 @@ package com.franktran.enrolmentmanagement.login;
 
 import com.franktran.enrolmentmanagement.config.security.auth.User;
 import com.franktran.enrolmentmanagement.config.security.auth.UserService;
-import com.franktran.enrolmentmanagement.dto.ResultDto;
+import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import com.franktran.enrolmentmanagement.mail.UserMailService;
 import com.franktran.enrolmentmanagement.util.Utility;
@@ -37,7 +37,7 @@ public class ForgotPasswordController {
   public String processForgotPassword(@RequestParam String email,
                                       HttpServletRequest request,
                                       RedirectAttributes ra) {
-    ResultDto result = new ResultDto();
+    Result result = new Result();
     String token = RandomString.make(30);
     try {
       userService.updateResetPasswordToken(token, email);
@@ -57,7 +57,7 @@ public class ForgotPasswordController {
   public String showResetPassword(@RequestParam String token, Model model) {
     User user = userService.getByRequestToken(token);
     if (Objects.isNull(user)) {
-      ResultDto result = new ResultDto();
+      Result result = new Result();
       result.setStatus(ResultStatus.FAIL);
       result.setMessage("Invalid Token");
       model.addAttribute("result", result);
@@ -72,7 +72,7 @@ public class ForgotPasswordController {
                                      @RequestParam String password,
                                      Model model) {
     User user = userService.getByRequestToken(token);
-    ResultDto result = new ResultDto();
+    Result result = new Result();
     if (Objects.isNull(user)) {
       result.setStatus(ResultStatus.FAIL);
       result.setMessage("Invalid Token");

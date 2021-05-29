@@ -6,7 +6,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class UserDto {
+public class UserRequest {
 
   @NotNull
   @NotEmpty

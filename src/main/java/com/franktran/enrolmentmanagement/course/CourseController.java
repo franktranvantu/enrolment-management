@@ -1,7 +1,7 @@
 package com.franktran.enrolmentmanagement.course;
 
 import com.franktran.enrolmentmanagement.config.security.UserRole;
-import com.franktran.enrolmentmanagement.dto.ResultDto;
+import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -61,7 +61,7 @@ public class CourseController {
             model.addAttribute("action", Objects.isNull(course.getId()) ? "Create" : "Update");
             return "save-course";
         }
-        ResultDto result = new ResultDto();
+        Result result = new Result();
         try {
             if (Objects.isNull(course.getId())) {
                 model.addAttribute("action", "Create");
@@ -95,7 +95,7 @@ public class CourseController {
     @PostMapping("/delete-course")
     @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'COURSE:WRITE')")
     public String deleteCourse(@RequestParam long id, RedirectAttributes ra) {
-        ResultDto result = new ResultDto();
+        Result result = new Result();
         try {
             courseService.deleteCourse(id);
             result.setStatus(ResultStatus.SUCCESS);
