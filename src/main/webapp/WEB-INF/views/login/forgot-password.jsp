@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
@@ -22,7 +23,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="${contextPath}/forgot-password" method="post" id="forgot-password">
+        <form:form action="${contextPath}/forgot-password" method="post" id="forgot-password">
           <div>
             <p>We will be sending a reset password link to your email.</p>
           </div>
@@ -40,7 +41,7 @@
               <button type="submit" class="btn btn-primary">Send</button>
             </div>
           </div>
-        </form>
+        </form:form>
       </div>
     </div>
   </div>

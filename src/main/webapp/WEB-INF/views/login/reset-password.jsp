@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
 <head>
@@ -22,7 +23,7 @@
         </div>
       </div>
       <div class="card-body">
-        <form action="${contextPath}/reset-password" method="post" id="reset-password">
+        <form:form action="${contextPath}/reset-password" method="post" id="reset-password">
           <input type="hidden" name="token" value="${token}">
           <div class="form-group row">
             <label for="new-password" class="col-6 col-form-label">New password <span class="text-danger">*</span></label>
@@ -51,7 +52,7 @@
               <button type="submit" class="btn btn-primary">Change</button>
             </div>
           </div>
-        </form>
+        </form:form>
       </div>
     </div>
   </div>

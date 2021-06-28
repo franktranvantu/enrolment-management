@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <html>
@@ -15,7 +16,7 @@
   </c:if>
   <div class="container login">
     <h1 class="text-center mt-4 mb-4">Login</h1>
-    <form method="post">
+    <form:form method="post">
       <div class="form-group">
         <label for="username">Username</label>
         <input name="username" class="form-control" aria-describedby="username" id="username">
@@ -37,12 +38,12 @@
       <div class="form-group">
         <button type="submit" class="btn btn-primary w-100">Login</button>
       </div>
-    </form>
-    <form action="">
+    </form:form>
+    <form:form>
       <div class="form-group text-center">
         <a href="${contextPath}/forgot-password">Forgot password?</a>
       </div>
-    </form>
+    </form:form>
     <hr/>
     <a href="${contextPath}/register" class="btn btn-success w-100">Register</a>
   </div>
