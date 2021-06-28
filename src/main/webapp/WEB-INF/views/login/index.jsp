@@ -15,7 +15,7 @@
   </c:if>
   <div class="container login">
     <h1 class="text-center mt-4 mb-4">Login</h1>
-    <form id="login" method="post" action="process-login">
+    <form method="post">
       <div class="form-group">
         <label for="username">Username</label>
         <input name="username" class="form-control" aria-describedby="username" id="username">
