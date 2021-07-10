@@ -29,8 +29,8 @@ public class StudentBootStrap implements CommandLineRunner {
     final int LIMIT = environment.getProperty("limit.student", Integer.class);
     List<Student> students = Stream.iterate(1, i -> i + 1)
         .map(i -> new Student(
-          faker.name().name(),
-          String.format("faker%d@gmail.com", i),
+          String.format("Student %d", i),
+          String.format("student%d@gmail.com", i),
           faker.date().birthday(10, 50).toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
         ))
         .limit(LIMIT)

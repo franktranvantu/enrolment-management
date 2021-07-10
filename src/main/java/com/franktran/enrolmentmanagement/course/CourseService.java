@@ -1,6 +1,11 @@
 package com.franktran.enrolmentmanagement.course;
 
+import com.franktran.enrolmentmanagement.dto.SearchCriteria;
+import com.franktran.enrolmentmanagement.student.StudentSpecification;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +23,11 @@ public class CourseService {
 
   public List<Course> getAllCourses() {
     return courseRepository.findAll();
+  }
+
+  public Page<Course> getCourses(CourseCriteria courseCriteria, Pageable pageRequest) {
+    CourseSpecification nameSpec = new CourseSpecification(new SearchCriteria("name", courseCriteria.getName()));
+    return courseRepository.findAll(Specification.where(nameSpec), pageRequest);
   }
 
   public Course getCourseById(long id) {

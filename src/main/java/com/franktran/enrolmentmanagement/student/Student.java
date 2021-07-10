@@ -24,12 +24,15 @@ public class Student {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  @NotBlank(message = "Name is mandatory")
+
+  @Column(nullable = false)
   private String name;
-  @NotBlank(message = "Email is mandatory")
-  @Email
+
+  @Column(nullable = false)
   private String email;
+
   private LocalDate dob;
+  
   @OneToMany(mappedBy = "student")
   @JsonIgnore
   private Set<Enrolment> enrolments = new HashSet<>();

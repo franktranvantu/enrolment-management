@@ -1,11 +1,12 @@
 package com.franktran.enrolmentmanagement.student;
 
-import com.franktran.enrolmentmanagement.dto.DateRange;
 import com.franktran.enrolmentmanagement.dto.SearchCriteria;
 import com.franktran.enrolmentmanagement.exception.EmailAlreadyExistException;
 import com.franktran.enrolmentmanagement.exception.StudentNotFoundException;
 import com.franktran.enrolmentmanagement.exception.StudentReferByOtherException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +27,11 @@ public class StudentService {
     return studentRepository.findAll();
   }
 
-  public List<Student> getAllStudents(String name, String email, DateRange dobRange) {
-    StudentSpecification nameSpec = new StudentSpecification(new SearchCriteria("name", name));
-    StudentSpecification emailSpec = new StudentSpecification(new SearchCriteria("email", email));
-    StudentSpecification dobSpec = new StudentSpecification(new SearchCriteria("dob", dobRange));
-    return studentRepository.findAll(Specification.where(nameSpec).and(emailSpec).and(dobSpec));
+  public Page<Student> getStudents(StudentCriteria studentCriteria, Pageable pageRequest) {
+    StudentSpecification nameSpec = new StudentSpecification(new SearchCriteria("name", studentCriteria.getName()));
+    StudentSpecification emailSpec = new StudentSpecification(new SearchCriteria("email", studentCriteria.getEmail()));
+    StudentSpecification dobSpec = new StudentSpecification(new SearchCriteria("dob", studentCriteria.getDobRange()));
+    return studentRepository.findAll(Specification.where(nameSpec).and(emailSpec).and(dobSpec), pageRequest);
   }
 
   public Student getStudentById(long id) {

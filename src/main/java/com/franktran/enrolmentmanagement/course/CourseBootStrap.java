@@ -1,6 +1,5 @@
 package com.franktran.enrolmentmanagement.course;
 
-import com.github.javafaker.Faker;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
@@ -24,10 +23,9 @@ public class CourseBootStrap implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
-    Faker faker = new Faker();
     final int LIMIT = environment.getProperty("limit.course", Integer.class);
     List<Course> courses = Stream.iterate(1, i -> i + 1)
-        .map(i -> new Course(faker.book().title()))
+        .map(i -> new Course(String.format("Course %d", i)))
         .limit(LIMIT)
         .collect(Collectors.toList());
 

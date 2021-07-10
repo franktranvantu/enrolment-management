@@ -5,6 +5,9 @@ import com.franktran.enrolmentmanagement.dto.DateRange;
 import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import io.sentry.Sentry;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -42,30 +45,28 @@ public class StudentController {
 
   @GetMapping
   @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ENROLMENT', 'ROLE_COURSE', 'ROLE_STUDENT')")
-  public String index(@RequestParam(required = false) String name,
-                      @RequestParam(required = false) String email,
-                      @RequestParam(required = false) DateRange dobRange,
+  public String index(StudentCriteria studentCriteria,
+                      @PageableDefault Pageable pageRequest,
                       Model model,
                       Authentication authentication) {
     UserRole[] editableRoles = new UserRole[] {ADMIN, STUDENT};
-    List<Student> students = studentService.getAllStudents(name, email, dobRange);
+    Page<Student> page = studentService.getStudents(studentCriteria, pageRequest);
     model.addAttribute("username", authentication.getName());
-    model.addAttribute("students", students);
-    model.addAttribute("student", new Student(name, email, null));
-    model.addAttribute("dobRange", dobRange);
+    model.addAttribute("students", page.getContent());
+    model.addAttribute("student", new Student(studentCriteria.getName(), studentCriteria.getEmail(), null));
+    model.addAttribute("dobRange", studentCriteria.getDobRange());
     model.addAttribute("isEditable", UserRole.isEditable(editableRoles, authentication.getAuthorities()));
     return "student-list";
   }
 
   @GetMapping("/export-{type}")
   @PreAuthorize("hasAnyAuthority('ADMIN:WRITE', 'STUDENT:WRITE')")
-  public String exportExcel(@RequestParam(required = false) String name,
-                            @RequestParam(required = false) String email,
-                            @RequestParam(required = false) DateRange dobRange,
+  public String exportExcel(StudentCriteria studentCriteria,
+                            @PageableDefault Pageable pageRequest,
                             @PathVariable String type,
                             HttpServletResponse response) throws IOException {
-    List<Student> students = studentService.getAllStudents(name, email, dobRange);
-    studentExportService.export(response, students, type);
+    Page<Student> page = studentService.getStudents(studentCriteria, pageRequest);
+    studentExportService.export(response, page.getContent(), type);
     return "forward:/student";
   }
 
