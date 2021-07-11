@@ -6,6 +6,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/students")
 public class StudentRestController {
@@ -27,7 +29,7 @@ public class StudentRestController {
   }
 
   @PostMapping
-  public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+  public ResponseEntity<StudentDto> createStudent(@RequestBody @Valid StudentDto student) {
     return ResponseEntity.ok(studentService.createStudent(student));
   }
 

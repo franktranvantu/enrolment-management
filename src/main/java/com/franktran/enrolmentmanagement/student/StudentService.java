@@ -1,9 +1,11 @@
+
 package com.franktran.enrolmentmanagement.student;
 
 import com.franktran.enrolmentmanagement.dto.SearchCriteria;
 import com.franktran.enrolmentmanagement.exception.EmailAlreadyExistException;
 import com.franktran.enrolmentmanagement.exception.StudentNotFoundException;
 import com.franktran.enrolmentmanagement.exception.StudentReferByOtherException;
+import org.mapstruct.factory.Mappers;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class StudentService {
 
   private final StudentRepository studentRepository;
+  private StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
 
   public StudentService(StudentRepository studentRepository) {
     this.studentRepository = studentRepository;
@@ -44,6 +47,16 @@ public class StudentService {
       throw new EmailAlreadyExistException(student.getEmail());
     }
     return studentRepository.save(student);
+  }
+
+  public StudentDto createStudent(StudentDto student) {
+    Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
+    if (studentOptional.isPresent()) {
+      throw new EmailAlreadyExistException(student.getEmail());
+    }
+    Student studentEntity = mapper.dtoToEntity(student);
+    studentRepository.save(studentEntity);
+    return mapper.entityToDto(studentEntity);
   }
 
   public Student updateStudent(long studentId, Student student) {
