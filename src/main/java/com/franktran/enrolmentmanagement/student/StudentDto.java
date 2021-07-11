@@ -17,6 +17,8 @@ import javax.validation.constraints.NotBlank;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class StudentDto {
 
+  private Long id;
+
   @NotBlank(message = "Name is required")
   @Length(min = 3, message = "Name should be minimum of 3 characters")
   private String name;
@@ -25,6 +27,6 @@ public class StudentDto {
   @Email(message = "Email is invalid")
   private String email;
 
-  @ValidBirthDate(message = "Birthday should be a past date and format should be " + Utility.DATE_FORMAT)
+  @ValidBirthDate(message = "Birthdate should be a past and formatted " + Utility.DATE_FORMAT)
   private String dob;
 }
