@@ -1,5 +1,7 @@
 package com.franktran.enrolmentmanagement.validation;
 
+import org.apache.commons.lang3.StringUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
@@ -12,6 +14,9 @@ public class ValidBirthDateValidator implements ConstraintValidator<ValidBirthDa
 
   @Override
   public boolean isValid(String dateStr, ConstraintValidatorContext constraintValidatorContext) {
+    if (StringUtils.isBlank(dateStr)) {
+      return true;
+    }
     try {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
       LocalDate date = LocalDate.parse(dateStr, formatter);
