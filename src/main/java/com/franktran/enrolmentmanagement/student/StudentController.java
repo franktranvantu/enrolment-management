@@ -1,10 +1,10 @@
 package com.franktran.enrolmentmanagement.student;
 
-import com.franktran.enrolmentmanagement.config.security.UserRole;
-import com.franktran.enrolmentmanagement.dto.DateRange;
+import com.franktran.enrolmentmanagement.config.security.Role;
 import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import io.sentry.Sentry;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -19,24 +19,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
-import static com.franktran.enrolmentmanagement.config.security.UserRole.ADMIN;
-import static com.franktran.enrolmentmanagement.config.security.UserRole.STUDENT;
+import static com.franktran.enrolmentmanagement.config.security.Role.ADMIN;
+import static com.franktran.enrolmentmanagement.config.security.Role.STUDENT;
 
 @Controller
-@RequestMapping("/student")
+@RequestMapping("/admin/student")
 @SessionAttributes("username")
+@RequiredArgsConstructor
 public class StudentController {
 
   private final StudentService studentService;
   private final StudentExportService studentExportService;
-
-  public StudentController(StudentService studentService, StudentExportService studentExportService) {
-    this.studentService = studentService;
-    this.studentExportService = studentExportService;
-  }
 
   @ModelAttribute("username")
   public String username(Authentication authentication) {
@@ -49,13 +44,13 @@ public class StudentController {
                       @PageableDefault Pageable pageRequest,
                       Model model,
                       Authentication authentication) {
-    UserRole[] editableRoles = new UserRole[] {ADMIN, STUDENT};
+    Role[] editableRoles = new Role[] {ADMIN, STUDENT};
     Page<Student> page = studentService.getStudents(studentCriteria, pageRequest);
     model.addAttribute("username", authentication.getName());
     model.addAttribute("students", page.getContent());
     model.addAttribute("student", new Student(studentCriteria.getName(), studentCriteria.getEmail(), null));
     model.addAttribute("dobRange", studentCriteria.getDobRange());
-    model.addAttribute("isEditable", UserRole.isEditable(editableRoles, authentication.getAuthorities()));
+    model.addAttribute("isEditable", Role.isEditable(editableRoles, authentication.getAuthorities()));
     return "student-list";
   }
 

@@ -10,9 +10,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.franktran.enrolmentmanagement.config.security.UserPermission.*;
+import static com.franktran.enrolmentmanagement.config.security.Permission.*;
 
-public enum UserRole {
+public enum Role {
 
     ADMIN(Sets.newHashSet(USER_READ, USER_WRITE, ENROLMENT_READ, ENROLMENT_WRITE, COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE)),
     ADMINTRAINEE(Sets.newHashSet(ENROLMENT_READ, ENROLMENT_WRITE, COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE)),
@@ -20,13 +20,13 @@ public enum UserRole {
     COURSE(Sets.newHashSet(COURSE_READ, COURSE_WRITE)),
     STUDENT(Sets.newHashSet(STUDENT_READ, STUDENT_WRITE));
 
-    private final Set<UserPermission> permissions;
+    private final Set<Permission> permissions;
 
-    UserRole(Set<UserPermission> permissions) {
+    Role(Set<Permission> permissions) {
         this.permissions = permissions;
     }
 
-    public Set<UserPermission> getPermissions() {
+    public Set<Permission> getPermissions() {
         return permissions;
     }
 
@@ -40,13 +40,13 @@ public enum UserRole {
 
     public static Set<GrantedAuthority> getAuthoritiesByRole(String role) {
         return Stream.of(values())
-            .filter(value -> UserRole.valueOf(role) == value)
-            .map(UserRole::getAuthorities)
+            .filter(value -> Role.valueOf(role) == value)
+            .map(Role::getAuthorities)
             .flatMap(Collection::stream)
             .collect(Collectors.toSet());
     }
 
-    public static boolean isEditable(UserRole[] roles, Collection<? extends GrantedAuthority> authorities) {
+    public static boolean isEditable(Role[] roles, Collection<? extends GrantedAuthority> authorities) {
         return authorities.stream()
             .filter(authority -> Arrays.stream(roles).anyMatch(role -> String.format("ROLE_%s", role).equals(authority.getAuthority())))
             .findAny()

@@ -1,10 +1,11 @@
 package com.franktran.enrolmentmanagement.enrolment;
 
-import com.franktran.enrolmentmanagement.config.security.UserRole;
+import com.franktran.enrolmentmanagement.config.security.Role;
 import com.franktran.enrolmentmanagement.course.CourseService;
 import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
 import com.franktran.enrolmentmanagement.student.StudentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,24 +18,18 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
-import static com.franktran.enrolmentmanagement.config.security.UserRole.ADMIN;
-import static com.franktran.enrolmentmanagement.config.security.UserRole.ENROLMENT;
+import static com.franktran.enrolmentmanagement.config.security.Role.ADMIN;
+import static com.franktran.enrolmentmanagement.config.security.Role.ENROLMENT;
 
 @Controller
+@RequestMapping("/admin")
 @SessionAttributes("username")
+@RequiredArgsConstructor
 public class EnrolmentController {
 
     private final EnrolmentService enrolmentService;
     private final CourseService courseService;
     private final StudentService studentService;
-
-    public EnrolmentController(EnrolmentService enrolmentService,
-                               CourseService courseService,
-                               StudentService studentService) {
-        this.enrolmentService = enrolmentService;
-        this.courseService = courseService;
-        this.studentService = studentService;
-    }
 
     @ModelAttribute("username")
     public String username(Authentication authentication) {
@@ -44,10 +39,10 @@ public class EnrolmentController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ENROLMENT', 'ROLE_COURSE', 'ROLE_STUDENT')")
     public String index(Model model, Authentication authentication) {
-        UserRole[] editableRoles = new UserRole[] {ADMIN, ENROLMENT};
+        Role[] editableRoles = new Role[] {ADMIN, ENROLMENT};
         List<Enrolment> enrolments = enrolmentService.getAllEnrolments();
         model.addAttribute("enrolments", enrolments);
-        model.addAttribute("isEditable", UserRole.isEditable(editableRoles, authentication.getAuthorities()));
+        model.addAttribute("isEditable", Role.isEditable(editableRoles, authentication.getAuthorities()));
         return "enrolment-list";
     }
 

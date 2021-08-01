@@ -1,6 +1,6 @@
 package com.franktran.enrolmentmanagement.config.security.auth;
 
-import com.franktran.enrolmentmanagement.config.security.UserRole;
+import com.franktran.enrolmentmanagement.config.security.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,7 +16,7 @@ public class CustomUserDetails implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return UserRole.getAuthoritiesByRole(user.getRole());
+    return Role.getAuthoritiesByRole(user.getRole());
   }
 
   @Override

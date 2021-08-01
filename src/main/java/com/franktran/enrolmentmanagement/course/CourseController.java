@@ -1,8 +1,9 @@
 package com.franktran.enrolmentmanagement.course;
 
-import com.franktran.enrolmentmanagement.config.security.UserRole;
+import com.franktran.enrolmentmanagement.config.security.Role;
 import com.franktran.enrolmentmanagement.dto.Result;
 import com.franktran.enrolmentmanagement.dto.ResultStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -15,19 +16,16 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 
-import static com.franktran.enrolmentmanagement.config.security.UserRole.ADMIN;
-import static com.franktran.enrolmentmanagement.config.security.UserRole.COURSE;
+import static com.franktran.enrolmentmanagement.config.security.Role.ADMIN;
+import static com.franktran.enrolmentmanagement.config.security.Role.COURSE;
 
 @Controller
-@RequestMapping("/course")
+@RequestMapping("/admin/course")
 @SessionAttributes("username")
+@RequiredArgsConstructor
 public class CourseController {
 
     private final CourseService courseService;
-
-    public CourseController(CourseService courseService) {
-        this.courseService = courseService;
-    }
 
     @ModelAttribute("username")
     public String username(Authentication authentication) {
@@ -37,10 +35,10 @@ public class CourseController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ENROLMENT', 'ROLE_COURSE', 'ROLE_STUDENT')")
     public String index(Model model, Authentication authentication) {
-        UserRole[] editableRoles = new UserRole[] {ADMIN, COURSE};
+        Role[] editableRoles = new Role[] {ADMIN, COURSE};
         List<Course> courses = courseService.getAllCourses();
         model.addAttribute("courses", courses);
-        model.addAttribute("isEditable", UserRole.isEditable(editableRoles, authentication.getAuthorities()));
+        model.addAttribute("isEditable", Role.isEditable(editableRoles, authentication.getAuthorities()));
         return "course-list";
     }
 

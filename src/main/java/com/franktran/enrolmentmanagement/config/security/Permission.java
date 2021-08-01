@@ -1,6 +1,6 @@
 package com.franktran.enrolmentmanagement.config.security;
 
-public enum UserPermission {
+public enum Permission {
 
     ENROLMENT_READ("ENROLMENT:READ"),
     ENROLMENT_WRITE("ENROLMENT:WRITE"),
@@ -13,7 +13,7 @@ public enum UserPermission {
 
     private final String permission;
 
-    UserPermission(String permission) {
+    Permission(String permission) {
         this.permission = permission;
     }
 

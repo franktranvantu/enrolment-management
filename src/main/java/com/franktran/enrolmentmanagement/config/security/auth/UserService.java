@@ -1,6 +1,6 @@
 package com.franktran.enrolmentmanagement.config.security.auth;
 
-import com.franktran.enrolmentmanagement.config.security.UserRole;
+import com.franktran.enrolmentmanagement.config.security.Role;
 import com.franktran.enrolmentmanagement.dto.UserRequest;
 import com.franktran.enrolmentmanagement.exception.UserAlreadyExistException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -75,7 +75,7 @@ public class UserService implements UserDetailsService {
       user.setUsername(userRequest.getUsername());
       user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
       user.setEmail(userRequest.getEmail());
-      user.setRole(UserRole.ENROLMENT.name());
+      user.setRole(Role.ENROLMENT.name());
       user.setRequestToken(token);
 
       return userRepository.save(user);
