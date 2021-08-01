@@ -2,6 +2,7 @@ package com.franktran.enrolmentmanagement.config.web;
 
 import com.franktran.enrolmentmanagement.formatter.DateFormatter;
 import com.franktran.enrolmentmanagement.formatter.DateRangeFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -11,15 +12,11 @@ import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
+@RequiredArgsConstructor
 public class WebMVCConfig implements WebMvcConfigurer {
 
     private final DateFormatter dateFormatter;
     private final DateRangeFormatter dateRangeFormatter;
-
-    public WebMVCConfig(DateFormatter dateFormatter, DateRangeFormatter dateRangeFormatter) {
-        this.dateFormatter = dateFormatter;
-        this.dateRangeFormatter = dateRangeFormatter;
-    }
 
     @Bean
     public TilesConfigurer tilesConfigurer() {

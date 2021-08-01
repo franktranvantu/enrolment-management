@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             Sentry.captureMessage(String.format("Username '%s' and password '%s' are valid", username, password), SentryLevel.INFO);
-            response.sendRedirect(StringUtils.EMPTY);
+            response.sendRedirect("admin");
         };
     }
 
