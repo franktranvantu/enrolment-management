@@ -26,8 +26,8 @@ public class CourseService {
   }
 
   public Page<Course> getCourses(CourseCriteria courseCriteria, Pageable pageRequest) {
-    CourseSpecification nameSpec = new CourseSpecification(new SearchCriteria("name", courseCriteria.getName()));
-    return courseRepository.findAll(Specification.where(nameSpec), pageRequest);
+    Specification<Course> conditions = Specification.where(CourseSpecification.hasNameLike(courseCriteria.getName()));
+    return courseRepository.findAll(conditions, pageRequest);
   }
 
   public Course getCourseById(long id) {
