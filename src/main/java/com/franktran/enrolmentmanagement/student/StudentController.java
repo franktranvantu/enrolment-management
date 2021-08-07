@@ -95,7 +95,7 @@ public class StudentController {
       }
       result.setStatus(ResultStatus.SUCCESS);
       ra.addFlashAttribute("result", result);
-      return "redirect:/student";
+      return "redirect:/admin/student";
     } catch (Exception e) {
       result.setStatus(ResultStatus.FAIL);
       result.setMessage(e.getMessage());
@@ -128,7 +128,7 @@ public class StudentController {
       Sentry.captureException(e);
     }
     ra.addFlashAttribute("result", result);
-    return "redirect:/student";
+    return "redirect:/admin/student";
   }
 
 }

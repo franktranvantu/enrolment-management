@@ -9,7 +9,7 @@
 <body>
   <div class="container w-25">
     <h1 class="text-center mt-4 mb-4">${action} Student</h1>
-    <form:form action="${contextPath}/student/save-student" method="post" modelAttribute="student" id="save-student">
+    <form:form action="${contextPath}/admin/student/save-student" method="post" modelAttribute="student" id="save-student">
       <form:hidden path="id"/>
       <div class="form-group row">
         <label for="name" class="col-sm-3 col-form-label">Name <span class="text-danger">*</span></label>

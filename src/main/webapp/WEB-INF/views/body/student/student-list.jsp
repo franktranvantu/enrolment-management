@@ -73,7 +73,7 @@
                   <a class="dropdown-item" href="" id="import-excel"><i class="fas fa-file-excel"></i> Import Excel</a>
                 </div>
               </div>
-              <a href="${contextPath}/student/create-student" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add new</a>
+              <a href="${contextPath}/admin/student/create-student" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add new</a>
             </div>
           </c:if>
         </div>
@@ -98,7 +98,7 @@
               <td class="text-center"><spring:eval expression="student.dob"/></td>
               <c:if test="${isEditable}">
                 <td class="text-center">
-                  <form class="mb-0" action="${contextPath}/student/update-student">
+                  <form class="mb-0" action="${contextPath}/admin/student/update-student">
                     <input type="hidden" name="id" value="${student.id}"/>
                     <button type="submit" class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
                     <button type="button" class="btn btn-sm btn-danger delete-student-button" data-id="${student.id}"><i class="fas fa-trash"></i></button>

@@ -11,7 +11,7 @@
       <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
         <h4 class="card-title mb-0">All Enrolments List</h4>
         <c:if test="${isEditable}">
-          <a href="${contextPath}/create-enrolment" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add new</a>
+          <a href="${contextPath}/admin/create-enrolment" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add new</a>
         </c:if>
       </div>
       <div class="card-body">
@@ -36,7 +36,7 @@
               <td>${enrolment.semester}</td>
               <c:if test="${isEditable}">
                 <td class="text-center">
-                  <form class="mb-0" action="${contextPath}/update-enrolment" method="post">
+                  <form class="mb-0" action="${contextPath}/admin/update-enrolment" method="post">
                     <input type="hidden" name="id" value="${enrolment.id}" />
                     <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
                     <a href="" class="btn btn-sm btn-danger delete-enrolment-button" data-id="${enrolment.id}"><i class="fas fa-trash"></i></a>

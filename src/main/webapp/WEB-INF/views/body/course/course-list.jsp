@@ -11,7 +11,7 @@
       <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
         <h4 class="card-title mb-0">All Courses List</h4>
         <c:if test="${isEditable}">
-          <a href="${contextPath}/course/create-course" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add
+          <a href="${contextPath}/admin/course/create-course" class="btn btn-primary"><i class="fas fa-user-plus"></i> Add
             new</a>
         </c:if>
       </div>
@@ -33,7 +33,7 @@
               <td>${course.name}</td>
               <c:if test="${isEditable}">
                 <td class="text-center">
-                  <form class="mb-0" action="${contextPath}/course/update-course" method="post">
+                  <form class="mb-0" action="${contextPath}/admin/course/update-course" method="post">
                     <input type="hidden" name="id" value="${course.id}"/>
                     <button class="btn btn-sm btn-primary"><i class="fas fa-pencil-alt"></i></button>
                     <a href="" class="btn btn-sm btn-danger delete-student-button" data-id="${course.id}"><i
