@@ -1,36 +1,31 @@
 package com.franktran.enrolmentmanagement.student;
 
 import com.franktran.enrolmentmanagement.dto.DateRange;
-import com.franktran.enrolmentmanagement.dto.SearchCriteria;
+import com.franktran.enrolmentmanagement.util.CriteriaUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import java.time.LocalDate;
-import java.util.Objects;
+public class StudentSpecification {
 
-public class StudentSpecification implements Specification<Student> {
-
-  private SearchCriteria criteria;
-
-  public StudentSpecification(SearchCriteria criteria) {
-    this.criteria = criteria;
-  }
-
-  @Override
-  public Predicate toPredicate(Root<Student> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-    if (Objects.isNull(criteria.getValue())) {
+  public static Specification<Student> hasNameLike(String name) {
+    if (StringUtils.isBlank(name)) {
       return null;
     }
-    if (root.get(criteria.getKey()).getJavaType() == String.class && StringUtils.isNoneEmpty(criteria.getKey())) {
-      return builder.like(builder.lower(root.get(criteria.getKey())), "%" + criteria.getValue().toString().toLowerCase() + "%");
-    } else if (root.get(criteria.getKey()).getJavaType() == LocalDate.class) {
-      DateRange dateRange = (DateRange) criteria.getValue();
-      return builder.between(root.get(criteria.getKey()), dateRange.getFrom(), dateRange.getTo());
-    }
-    return null;
+    return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get(Student.Fields.name)), CriteriaUtils.formatLike(name));
   }
+
+  public static Specification<Student> hasEmailLike(String email) {
+    if (StringUtils.isBlank(email)) {
+      return null;
+    }
+    return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(criteriaBuilder.lower(root.get(Student.Fields.email)), CriteriaUtils.formatLike(email));
+  }
+
+  public static Specification<Student> hasDateRangeBetween(DateRange dateRange) {
+    if (dateRange == null) {
+      return null;
+    }
+    return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.between(root.get(Student.Fields.dob), dateRange.getFrom(), dateRange.getTo());
+  }
+
 }

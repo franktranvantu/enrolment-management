@@ -1,11 +1,10 @@
 
 package com.franktran.enrolmentmanagement.student;
 
-import com.franktran.enrolmentmanagement.dto.SearchCriteria;
 import com.franktran.enrolmentmanagement.exception.EmailAlreadyExistException;
 import com.franktran.enrolmentmanagement.exception.StudentNotFoundException;
 import com.franktran.enrolmentmanagement.exception.StudentReferByOtherException;
-import org.mapstruct.factory.Mappers;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,25 +15,25 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static com.franktran.enrolmentmanagement.student.StudentMapper.MAPPER_INSTANCE;
+import static com.franktran.enrolmentmanagement.student.StudentSpecification.*;
+
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
   private final StudentRepository studentRepository;
-  private StudentMapper mapper = Mappers.getMapper(StudentMapper.class);
-
-  public StudentService(StudentRepository studentRepository) {
-    this.studentRepository = studentRepository;
-  }
 
   public List<Student> getAllStudents() {
     return studentRepository.findAll();
   }
 
-  public Page<Student> getStudents(StudentCriteria studentCriteria, Pageable pageRequest) {
-    StudentSpecification nameSpec = new StudentSpecification(new SearchCriteria("name", studentCriteria.getName()));
-    StudentSpecification emailSpec = new StudentSpecification(new SearchCriteria("email", studentCriteria.getEmail()));
-    StudentSpecification dobSpec = new StudentSpecification(new SearchCriteria("dob", studentCriteria.getDobRange()));
-    return studentRepository.findAll(Specification.where(nameSpec).and(emailSpec).and(dobSpec), pageRequest);
+  public Page<Student> getStudents(StudentCriteria criteria, Pageable pageRequest) {
+    Specification<Student> conditions = Specification
+        .where(hasDateRangeBetween(criteria.getDobRange()))
+        .and(hasNameLike(criteria.getName()))
+        .and(hasEmailLike(criteria.getEmail()));
+    return studentRepository.findAll(conditions, pageRequest);
   }
 
   public Student getStudentById(long id) {
@@ -54,9 +53,9 @@ public class StudentService {
     if (studentOptional.isPresent()) {
       throw new EmailAlreadyExistException(student.getEmail());
     }
-    Student studentEntity = mapper.dtoToEntity(student);
+    Student studentEntity = MAPPER_INSTANCE.dtoToEntity(student);
     studentRepository.save(studentEntity);
-    return mapper.entityToDto(studentEntity);
+    return MAPPER_INSTANCE.entityToDto(studentEntity);
   }
 
   public Student updateStudent(long studentId, Student student) {
