@@ -49,14 +49,14 @@ public class CourseService {
   }
 
   public void deleteCourse(long id) {
-      courseRepository.findById(id).ifPresentOrElse(course -> {
-        try {
-            courseRepository.deleteById(id);
-        } catch (DataIntegrityViolationException e) {
-          throw new IllegalStateException(String.format("Course %s is being used by others!", course.getName()));
-        }
-      }, () -> {
-        throw new IllegalStateException(String.format("Course with id %s not exists", id));
-      });
+    Optional<Course> course = courseRepository.findById(id);
+    if (!course.isPresent()) {
+      throw new IllegalArgumentException(String.format("Course with id %s not exists", id));
+    }
+    try {
+      courseRepository.deleteById(id);
+    } catch (DataIntegrityViolationException e) {
+      throw new IllegalStateException(String.format("Course %s is being used by others!", course.get().getName()));
+    }
   }
 }
