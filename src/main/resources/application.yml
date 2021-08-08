@@ -1,3 +1,11 @@
+server:
+  port: 9000
+
+limit:
+  enrolment: 100
+  course: 100
+  student: 100
+
 spring:
   profiles:
     active: heroku
