@@ -1,8 +1,8 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  enrolment-management-mysql:
-    container_name: enrolment-management-mysql
+  enrolment-management-db:
+    container_name: enrolment-management-db
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: frank
@@ -15,4 +15,4 @@ services:
     ports:
     - 8080:8080
     depends_on:
-      - enrolment-management-mysql
+      - enrolment-management-db
