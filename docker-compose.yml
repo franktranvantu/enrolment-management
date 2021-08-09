@@ -11,7 +11,7 @@ services:
 
   enrolment-management-web:
     container_name: enrolment-management-web
-    image: enrolment-management
+    image: franktranvantu/enrolment-management
     ports:
     - 8080:8080
     depends_on:
