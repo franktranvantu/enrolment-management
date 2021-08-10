@@ -6,6 +6,7 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: frank
+      MYSQL_DATABASE: spring_mvc
     ports:
       - 3306:3306
 

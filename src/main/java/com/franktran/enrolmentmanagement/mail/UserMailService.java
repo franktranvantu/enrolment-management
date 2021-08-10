@@ -1,9 +1,9 @@
 package com.franktran.enrolmentmanagement.mail;
 
-import com.franktran.enrolmentmanagement.config.security.auth.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -11,22 +11,11 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 
 @Service
+@RequiredArgsConstructor
 public class UserMailService {
 
-  private final UserRepository userRepository;
-  private final PasswordEncoder passwordEncoder;
   private final JavaMailSender mailSender;
   private final MailProperties mailProperties;
-
-  public UserMailService(UserRepository userRepository,
-                         PasswordEncoder passwordEncoder,
-                         JavaMailSender mailSender,
-                         MailProperties mailProperties) {
-    this.userRepository = userRepository;
-    this.passwordEncoder = passwordEncoder;
-    this.mailSender = mailSender;
-    this.mailProperties = mailProperties;
-  }
 
   public void sendResetEmail(String recipientEmail, String link)
       throws MessagingException, UnsupportedEncodingException {
