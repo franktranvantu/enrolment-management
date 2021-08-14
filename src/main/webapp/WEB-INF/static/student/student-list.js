@@ -35,7 +35,7 @@ $(function() {
         action = '/export-pdf';
         break;
     }
-    const $form = $(`<form action="/student${action}"></form>`);
+    const $form = $(`<form action="/admin/student${action}"></form>`);
     $form.append(`<input type="hidden" name="name" value="${name}">`);
     $form.append(`<input type="hidden" name="email" value="${email}">`);
     $form.append(`<input type="hidden" name="dobRange" value="${dobRange}">`);
