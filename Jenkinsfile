@@ -12,15 +12,6 @@ pipeline {
       }
     }
 
-    stage("Compile") {
-      steps {
-        echo 'Cleaning the application...'
-        withMaven() {
-          sh './mvnw compile'
-        }
-      }
-    }
-
     stage("Test") {
       steps {
         echo 'Testing the application...'
