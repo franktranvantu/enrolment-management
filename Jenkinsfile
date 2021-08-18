@@ -3,21 +3,18 @@ pipeline {
   agent any
 
   stages {
-    stage("Build") {
+    stage("Clean") {
       steps {
-        echo 'Building the application...'
+        echo 'Cleaning the application...'
       }
     }
 
-    stage("Test") {
+    stage("Package") {
       steps {
-        echo 'Testing the application...'
-      }
-    }
-
-    stage("Deploy") {
-      steps {
-        echo 'Deploying the application...'
+        echo 'Packaging the application...'
+        withMaven() {
+          sh 'mvn clean install'
+        }
       }
     }
   }
