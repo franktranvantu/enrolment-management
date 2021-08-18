@@ -1,7 +1,7 @@
 
 spring:
   profiles:
-    active: heroku
+    active: mysql
   jpa:
     show-sql: true
     hibernate:
