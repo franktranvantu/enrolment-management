@@ -6,6 +6,27 @@ pipeline {
     stage("Clean") {
       steps {
         echo 'Cleaning the application...'
+        withMaven() {
+          sh './mvnw clean'
+        }
+      }
+    }
+
+    stage("Compile") {
+      steps {
+        echo 'Cleaning the application...'
+        withMaven() {
+          sh './mvnw compile'
+        }
+      }
+    }
+
+    stage("Test") {
+      steps {
+        echo 'Testing the application...'
+        withMaven() {
+          sh './mvnw test'
+        }
       }
     }
 
@@ -13,7 +34,7 @@ pipeline {
       steps {
         echo 'Packaging the application...'
         withMaven() {
-          sh 'mvn clean install'
+          sh './mvnw package'
         }
       }
     }
