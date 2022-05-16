@@ -24,9 +24,9 @@ public class StudentBootStrap implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... args) throws Exception {
+  public void run(String... args) {
     Faker faker = new Faker();
-    final int LIMIT = environment.getProperty("limit.student", Integer.class);
+    final int LIMIT = environment.getProperty("student.limit", Integer.class);
     List<Student> students = Stream.iterate(1, i -> i + 1)
         .map(i -> new Student(
           String.format("Student %d", i),

@@ -22,8 +22,8 @@ public class CourseBootStrap implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... args) throws Exception {
-    final int LIMIT = environment.getProperty("limit.course", Integer.class);
+  public void run(String... args) {
+    final int LIMIT = environment.getProperty("course.limit", Integer.class);
     List<Course> courses = Stream.iterate(1, i -> i + 1)
         .map(i -> new Course(String.format("Course %d", i)))
         .limit(LIMIT)

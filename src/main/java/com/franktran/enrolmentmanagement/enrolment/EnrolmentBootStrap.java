@@ -31,8 +31,8 @@ public class EnrolmentBootStrap implements CommandLineRunner {
   }
 
   @Override
-  public void run(String... args) throws Exception {
-    final int LIMIT = environment.getProperty("limit.enrolment", Integer.class);
+  public void run(String... args) {
+    final int LIMIT = environment.getProperty("enrolment.limit", Integer.class);
     List<Enrolment> enrolments = Stream.iterate(1, i -> i + 1)
         .map(i -> new Enrolment(courseService.getCourseById(i), studentService.getStudentById(i), "2021A"))
         .limit(LIMIT)
